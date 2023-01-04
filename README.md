@@ -6,8 +6,8 @@
 
 ## Maximal Common Subsequences
 - MCS(Maximal Common Subsequences) is common subsequences that is no longer a common subsequence when any character is inserted.
-- This was proposed by Campbell B. Fraser and Robert W. Irving in 1975[[1]](https://www.sciencedirect.com/science/article/pii/S0890540196900115).
-- Yoshifumi Sakai proposed a (sub)linearithmic-time, linear-space algorithm for finding a maximal common subsequence of two strings and a linear-time algorithm for determining if a common subsequence of two strings is maximal[[2]](https://www.sciencedirect.com/science/article/pii/S0304397519304074).
+- This was proposed first by Campbell B. Fraser and Robert W. Irving in 1975[[1]](https://www.sciencedirect.com/science/article/pii/S0890540196900115).
+- Yoshifumi Sakai proposed a (sub)linearithmic-time, linear-space algorithm for finding a maximal common subsequence of two strings and a linear-time algorithm for determining if a common subsequence of two strings is maximal[[2]](https://www.sciencedirect.com/science/article/pii/S0304397519304074). (Actually, They proposed SMCS(Shortest Maximal Common Subsequence).)
 - DongYeop Lee and Joon Chae Na proposed a algorithm finding a longer MCS than Y. Sakai's[[3]](https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11035975&googleIPSandBox=false&mark=0&useDate=&ipRange=false&accessgl=Y&language=ko_KR&hasTopBanner=true)[[4]](https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11100316&googleIPSandBox=false&mark=0&useDate=&ipRange=false&accessgl=Y&language=ko_KR&hasTopBanner=true).
 
 ## A New Algorithm

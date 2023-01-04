@@ -2465,6 +2465,8 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataN
 					}
 
 					c = _isData.get();
+					while(c == '\n' || c == '\t')
+						c = _isData.get();
 					if ((int)c == -1)
 						continue;
 

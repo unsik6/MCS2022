@@ -2515,7 +2515,7 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataN
 			int keyCnt = 0;
 			for (map<char, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
-				_osRecorder << iter->first << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
+				_osRecorder << keyCnt << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
 				keyCnt++;
 			}
 			_osRecorder << keyCnt << '\t';
@@ -2600,7 +2600,7 @@ void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, int _sizeIt
 			int keyCnt = 0;
 			for (map<wchar_t, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
-				_osRecorder << iter->first << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
+				_osRecorder << keyCnt << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
 				keyCnt++;
 			}
 			_osRecorder << keyCnt << '\t';

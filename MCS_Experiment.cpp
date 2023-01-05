@@ -2397,7 +2397,7 @@ void recordColumn(ofstream& _os)
 		_os << k << "_Len\tcorrectness\tperLen\ttime\t";
 	}
 
-	_os << '\n';
+	_os << "alphabet_Size\n";
 }
 void record(ofstream& _os, returnPacket& _rp)
 {
@@ -2513,14 +2513,16 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataN
 			}
 
 			// alphabets
-			_osRecorder << "alphabets\t";
 			int keyCnt = 0;
+			for (map<char, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
+				keyCnt++;
+			_osRecorder << keyCnt << '\t';
+			keyCnt = 0;
 			for (map<char, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
 				_osRecorder << keyCnt << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
 				keyCnt++;
 			}
-			_osRecorder << keyCnt << '\t';
 			_osRecorder << '\n';
 
 			strX.clear();
@@ -2598,14 +2600,16 @@ void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, int _sizeIt
 			}
 
 			// alphabets
-			_osRecorder << "alphabets\t";
 			int keyCnt = 0;
+			for (map<wchar_t, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
+				keyCnt++;
+			_osRecorder << keyCnt << '\t';
+			keyCnt = 0;
 			for (map<wchar_t, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
 				_osRecorder << keyCnt << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
 				keyCnt++;
 			}
-			_osRecorder << keyCnt << '\t';
 
 			_osRecorder << '\n';
 

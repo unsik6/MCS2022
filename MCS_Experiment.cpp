@@ -43,7 +43,7 @@ struct ghs
 returnPacket MCS_0(string _str1, string _str2);
 
 // The Maximal Common Subsequence algorithms of DongYeop Lee and Joong Chae Na.
-// ì´ë™ì—½, & ë‚˜ì¤‘ì±„. (2022). ë” ê¸´ ê·¹ëŒ€ ê³µí†µ ë¶€ë¶„ ì„œì—´ì„ ì°¾ê¸° ìœ„í•œ ì•Œê³ ë¦¬ì¦˜. ì •ë³´ê³¼í•™íšŒë…¼ë¬¸ì§€, 49(7), 507-513.
+// ÀÌµ¿¿±, & ³ªÁßÃ¤. (2022). ´õ ±ä ±Ø´ë °øÅë ºÎºĞ ¼­¿­À» Ã£±â À§ÇÑ ¾Ë°í¸®Áò. Á¤º¸°úÇĞÈ¸³í¹®Áö, 49(7), 507-513.
 // DongYeop Lee, & Joong Chae Na. (2022), An Improved Algorithm for Finding a Longer Maximal Common Subsequence. Journal of KIISE, 49(7), 507-513.
 // https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11100316&googleIPSandBox=false&mark=0&useDate=&ipRange=false&accessgl=Y&language=ko_KR&hasTopBanner=true
 struct leeGhs
@@ -55,64 +55,44 @@ struct leeGhs
 };
 returnPacket MCS_1(string _str1, string _str2);
 
-// Shin & Sim's
-struct myGhs
+// Àú³Î¿¡ Ãß°¡µÊ
+struct leeGhsA
 {
 	int g = -1;
 	int h = -1;
-
-	bool thisTurn = true; // X = true; Y = false;
-
-	int xS = -1;
-	int yS = -1;
+	int s = -1;
+	bool toggle = true;
 };
-
-struct MyGhs
-{
-	int id = 0;
-	int g = 0;
-	int h = 0;
-	int s = 0;
-};
-
-// k Match MCS (using Queue) - Fail
-// - Store pending common characters using queues indexed by each common character.
-returnPacket MCS_T0(string _str1, string _str2, int _k);
-
-// k match compared MCS (using Deque) - Fail
-// - Compare two pending common characters in a deque.
-returnPacket MCS_T1(string _str1, string _str2, int _k);
+returnPacket MCS_1_A(string _str1, string _str2);	
 
 // k match Linear Max Search MCS (using vector)
 // The Maximal Common Subsequence algorithms of Hyeonjun Shin and Jeong Seop Sim.
-// ì‹ í˜„ì¤€, & ì‹¬ì •ì„­. (2022). ë‘ ë¬¸ìì—´ì˜ ê·¹ëŒ€ê³µí†µë¶€ë¶„ì„œì—´ì„ ì°¾ëŠ” ìƒˆë¡œìš´ ì•Œê³ ë¦¬ì¦˜. 2022ë…„ í•œêµ­ì†Œí”„íŠ¸ì›¨ì–´ì¢…í•©í•™ìˆ ëŒ€íšŒ ë…¼ë¬¸ì§‘, 1212-1214.
+// ½ÅÇöÁØ, & ½ÉÁ¤¼·. (2022). µÎ ¹®ÀÚ¿­ÀÇ ±Ø´ë°øÅëºÎºĞ¼­¿­À» Ã£´Â »õ·Î¿î ¾Ë°í¸®Áò. 2022³â ÇÑ±¹¼ÒÇÁÆ®¿ş¾îÁ¾ÇÕÇĞ¼ú´ëÈ¸ ³í¹®Áı, 1212-1214.
 // Hyeonjun Shin, & Jeon Seop Sim. A New Algorithm of Finding a Maximal Common Subsequence of Two Strings. Korea Software Congress 2022, 1212-1214.
-struct PQGhs
+struct kcGHS
 {
 	int id = -1;
 	int g = -1;
 	int h = -1;
 	int s = 0;
+};
+returnPacket MCS_T1(string _str1, string _str2, int _k);
+returnPacket MCS_T1_1(string _str1, string _str2, int _k);	// stackÀ¸·Î ¼öÁ¤ - ÀüÇô ºü¸£Áö ¾ÊÀ½: º¸Åë 50¸¸ ¹ø¿¡ 5¸¸¹ø ²Ã·Î ºü¸§: ½ÇÇè¿¡¼­ Á¦¿Ü
+
+// new k Max Search MCS
+// k ¹üÀ§ ¾È¿¡¼­ °¡Àå ±ä °ÍÀ» ¼±ÅÃÇØ¼­ MCS ÁøÇà
+// ÀÏ´Ü °¥±â´Â °ÅÀÓ.
+struct krGHS
+{
+	int id = -1;
+	int g = 0;
+	int h = 0;
+	int gs = 0;
+	int hs = 0;
+	bool isKrunned = false;
 };
 returnPacket MCS_T2(string _str1, string _str2, int _k);
 
-// k match Two Heap MCS (usin Heap) - Fail
-// - using two heaps storing common characters in each string.
-struct PQGhs6
-{
-	int id = -1;
-	int g = -1;
-	int h = -1;
-	int s = 0;
-
-	// push ë‹¹ì‹œì˜ iEnd6, jEnd6
-	int pushed_iEnd = -1;
-	int pushed_jEnd = -1;
-
-	// check ìš©
-	long long pushed_num = -1;
-};
-returnPacket MCS_T3(string _str1, string _str2, int _k);
 
 bool isMCS(string _str1, string _str2, string _mcs);
 
@@ -132,6 +112,9 @@ struct wreturnPacket
 wreturnPacket LCS(wstring _str1, wstring _str2);
 wreturnPacket MCS_0(wstring _str1, wstring _str2);
 wreturnPacket MCS_1(wstring _str1, wstring _str2);
+wreturnPacket MCS_1_A(wstring _str1, wstring _str2);
+wreturnPacket MCS_T1(wstring _str1, wstring _str2, int _k);
+wreturnPacket MCS_T1_1(wstring _str1, wstring _str2, int _k);
 wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k);
 bool isMCS(wstring _str1, wstring _str2, wstring _mcs);
 
@@ -141,12 +124,12 @@ int randomAlphabetSizes[11] = { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 }
 string strX, strY; wstring wstrX, wstrY;
 bool ostreamCheck(ofstream& _os, string _name);
 bool istreamCheck(ifstream& _is, string _name);
-void recordColumn();
-void record(ofstream& _os, returnPacket& _rp);
-void record(ofstream& _os, wreturnPacket& _rp);
+void recordColumn(ofstream& _osLen, ofstream& _osT);
+void record(ofstream& _osLen, ofstream& _osT, returnPacket& _rp);
+void record(ofstream& _osLen, ofstream& _osT, wreturnPacket& _rp);
 returnPacket experiment_function(int _funcNo, int _k, string _str1, string _str2);
-void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum);
-void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum);
+void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _osTimeRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum);
+void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, ofstream& _osTimeRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum);
 
 int main()
 {
@@ -156,12 +139,16 @@ int main()
 	if (!istreamCheck(isDNA, filename)) return -1;
 	filename = "dnaResult.txt";
 	ofstream osDNA(filename, ios::out);
-	if(!ostreamCheck(osDNA, filename)) return -1;
+	if (!ostreamCheck(osDNA, filename)) return -1;
+	filename = "time" + filename;
+	ofstream ostDNA(filename, ios::out);
+	if (!ostreamCheck(ostDNA, filename)) return -1;
 
-	experiment_RealData(isDNA, osDNA, "DNA", 10, 1000, 100);
+	experiment_RealData(isDNA, osDNA, ostDNA, "DNA", 10, 1000, 100);
 
 	isDNA.clear(); isDNA.close();
 	osDNA.clear(); osDNA.close();
+	ostDNA.clear(); ostDNA.close();
 
 	// Protein
 	filename = "proteins.txt";
@@ -170,11 +157,15 @@ int main()
 	filename = "proteinResult.txt";
 	ofstream osProtein(filename, ios::out);
 	if (!ostreamCheck(osProtein, filename)) return -1;
+	filename = "time" + filename;
+	ofstream ostProtein(filename, ios::out);
+	if (!ostreamCheck(ostProtein, filename)) return -1;
 
-	experiment_RealData(isProtein, osProtein, "Protein", 10, 1000, 100);
+	experiment_RealData(isProtein, osProtein, ostProtein, "Protein", 10, 1000, 100);
 
 	isProtein.clear(); isProtein.close();
 	osProtein.clear(); osProtein.close();
+	ostProtein.clear(); ostProtein.close();
 
 	// English
 	filename = "english.txt";
@@ -183,11 +174,15 @@ int main()
 	filename = "englishResult.txt";
 	ofstream osEng(filename, ios::out);
 	if(!ostreamCheck(osEng, filename)) return -1;
+	filename = "time" + filename;
+	ofstream ostEng(filename, ios::out);
+	if (!ostreamCheck(ostEng, filename)) return -1;
 
-	experiment_RealData(isEng, osEng, "English", 10, 1000, 100);
+	experiment_RealData(isEng, osEng, ostEng, "English", 10, 1000, 100);
 
 	isEng.clear(); isEng.close();
 	osEng.clear(); osEng.close();
+	ostEng.clear(); ostEng.close();
 
 	// random
 	string prefix = "_alphabetResult.txt";
@@ -196,10 +191,14 @@ int main()
 		filename = to_string(randomAlphabetSizes[alphaIdx]) + prefix;
 		ofstream osRandom(filename, ios::out);
 		if(!ostreamCheck(osRandom, filename)) return -1;
+		filename = "time" + filename;
+		ofstream ostRan(filename, ios::out);
+		if (!ostreamCheck(ostRan, filename)) return -1;
 
-		experiment_RandomData(randomAlphabetSizes[alphaIdx], osRandom, 10, 1000, 100);
+		experiment_RandomData(randomAlphabetSizes[alphaIdx], osRandom, ostRan, 10, 1000, 100);
 
 		osRandom.clear(); osRandom.close();
+		ostRan.clear(); ostRan.close();
 	}
 	
 	return 0;
@@ -207,7 +206,7 @@ int main()
 
 returnPacket LCS(string _str1, string _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -218,14 +217,14 @@ returnPacket LCS(string _str1, string _str2)
 	int len2 = (int)_str2.length();
 
 
-	// matrix ìƒì„±í•˜ëŠ” ë°˜ë³µë¬¸ ìµœì†Œí™”ë¥¼ ìœ„í•œ ì‘ì—…; ë” ì§§ì€ ê²ƒì„ str1ìœ¼ë¡œ ê³ ì •
+	// matrix »ı¼ºÇÏ´Â ¹İº¹¹® ÃÖ¼ÒÈ­¸¦ À§ÇÑ ÀÛ¾÷; ´õ ÂªÀº °ÍÀ» str1À¸·Î °íÁ¤
 	if (len1 > len2)
 	{
 		string tmp = _str1; _str1 = _str2; _str2 = tmp;
 		int tmp2 = len1; len1 = len2; len2 = tmp2;
 	}
 
-	// LCS ì•Œê³ ë¦¬ì¦˜ì„ ìœ„í•´ í•„ìš”í•œ í–‰ë ¬
+	// LCS ¾Ë°í¸®ÁòÀ» À§ÇØ ÇÊ¿äÇÑ Çà·Ä
 	int** matrix = new int* [len1 + 1];
 	for (int i = 0; i < len1 + 1; i++)
 	{
@@ -279,11 +278,11 @@ returnPacket LCS(string _str1, string _str2)
 		}
 	}
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
-	// ì†Œë©¸
+	// ¼Ò¸ê
 	for (int i = 0; i < len1 + 1; i++)
 	{
 		delete[] matrix[i];
@@ -297,7 +296,7 @@ returnPacket LCS(string _str1, string _str2)
 // Y Sakai
 returnPacket MCS_0(string _str1, string _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -311,7 +310,7 @@ returnPacket MCS_0(string _str1, string _str2)
 	ghs init{ -1, -1, 0 };
 	stk.push(init);
 
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	int iEnd = len1; int jEnd = len2;
 
 	while (!stk.empty())
@@ -319,12 +318,12 @@ returnPacket MCS_0(string _str1, string _str2)
 		ghs curGHS = stk.top();
 		stk.pop();
 
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		if (curGHS.s % 2 == 0)
 		{
 			int searching_g = curGHS.g + curGHS.s / 2 + 1;
 
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_g < iEnd)
 			{
 				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
@@ -332,15 +331,15 @@ returnPacket MCS_0(string _str1, string _str2)
 
 				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
 				{
 					ghs next_GHS{ searching_g, finding_h, 0 };
 					stk.push(next_GHS);
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -353,12 +352,12 @@ returnPacket MCS_0(string _str1, string _str2)
 					break;
 			}
 		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		else
 		{
 			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
 
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_h < jEnd)
 			{
 				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
@@ -366,15 +365,15 @@ returnPacket MCS_0(string _str1, string _str2)
 
 				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
 				{
 					ghs next_GHS{ finding_g, searching_h, 0 };
 					stk.push(next_GHS);
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -393,7 +392,7 @@ returnPacket MCS_0(string _str1, string _str2)
 	cout << "MCS Sakai : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
@@ -404,7 +403,7 @@ returnPacket MCS_0(string _str1, string _str2)
 // Lee
 returnPacket MCS_1(string _str1, string _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -418,7 +417,7 @@ returnPacket MCS_1(string _str1, string _str2)
 	leeGhs init{ -1, -1, 1, 1 };
 	stk.push(init);
 
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	int iEnd = len1; int jEnd = len2;
 
 	while (!stk.empty())
@@ -426,24 +425,24 @@ returnPacket MCS_1(string _str1, string _str2)
 		leeGhs curGHS = stk.top();
 		stk.pop();
 
-		// Xì™€ Yì—ì„œ íƒìƒ‰í•  ë¬¸ìì˜ ìœ„ì¹˜ë¥¼ êµ¬í•œë‹¤.
+		// X¿Í Y¿¡¼­ Å½»öÇÒ ¹®ÀÚÀÇ À§Ä¡¸¦ ±¸ÇÑ´Ù.
 		int searching_g = curGHS.g + curGHS.gs;
 		int searching_h = curGHS.h + curGHS.hs;
 
-		// ë‘ ê³³ ëª¨ë‘ íƒìƒ‰ ë²”ìœ„ë¥¼ ë„˜ì§€ ì•ŠëŠ” ê²½ìš°
+		// µÎ °÷ ¸ğµÎ Å½»ö ¹üÀ§¸¦ ³ÑÁö ¾Ê´Â °æ¿ì
 		if (searching_g < iEnd && searching_h < jEnd)
 		{
 			int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 			int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-			// ì–‘ìª½ ê¸°ì¤€ì˜ ë¬¸ìê°€ ë‹¤ë¥¸ ë¬¸ìì—´ì—ì„œ ë‚˜íƒ€ë‚œ ê²½ìš°
+			// ¾çÂÊ ±âÁØÀÇ ¹®ÀÚ°¡ ´Ù¸¥ ¹®ÀÚ¿­¿¡¼­ ³ªÅ¸³­ °æ¿ì
 			if ((finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1) &&
 				(finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1))
 			{
 				int minLen_by_g = min((iEnd - searching_g), (jEnd - finding_h));
 				int minLen_by_h = min((iEnd - finding_g), (jEnd - searching_h));
 
-				// Xì—ì„œ ì°¾ì€ ë¬¸ìë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•  ë•Œ ë²”ìœ„ê°€ ë” ë„“ì–´ì§€ëŠ” ê²½ìš°
+				// X¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
 				if (minLen_by_g >= minLen_by_h)
 				{
 					leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs };
@@ -452,7 +451,7 @@ returnPacket MCS_1(string _str1, string _str2)
 					leeGhs next_GHS{ searching_g, finding_h, 1, 1 };
 					stk.push(next_GHS);
 				}
-				// Yì—ì„œ ì°¾ì€ ë¬¸ìë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•  ë•Œ ë²”ìœ„ê°€ ë” ë„“ì–´ì§€ëŠ” ê²½ìš°
+				// Y¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
 				else
 				{
 					leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs, curGHS.hs + 1 };
@@ -462,7 +461,7 @@ returnPacket MCS_1(string _str1, string _str2)
 					stk.push(next_GHS);
 				}
 			}
-			// X ê¸°ì¤€ì˜ ë¬¸ìê°€ str2ì—ì„œ ë‚˜íƒ€ë‚œ ê²½ìš°ë§Œ
+			// X ±âÁØÀÇ ¹®ÀÚ°¡ str2¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
 			else if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
 			{
 				leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1 };
@@ -471,7 +470,7 @@ returnPacket MCS_1(string _str1, string _str2)
 				leeGhs next_GHS{ searching_g, finding_h, 1, 1 };
 				stk.push(next_GHS);
 			}
-			// Y ê¸°ì¤€ì˜ ë¬¸ìê°€ str1ì—ì„œ ë‚˜íƒ€ë‚œ ê²½ìš°ë§Œ
+			// Y ±âÁØÀÇ ¹®ÀÚ°¡ str1¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
 			else if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
 			{
 				leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1 };
@@ -480,7 +479,7 @@ returnPacket MCS_1(string _str1, string _str2)
 				leeGhs next_GHS{ finding_g, searching_h, 1, 1 };
 				stk.push(next_GHS);
 			}
-			// ë‘˜ë‹¤ ì•ˆ ë‚˜íƒ€ë‚œ ê²½ìš°
+			// µÑ´Ù ¾È ³ªÅ¸³­ °æ¿ì
 			else
 			{
 				leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1 };
@@ -506,7 +505,7 @@ returnPacket MCS_1(string _str1, string _str2)
 	cout << "MCS Lee : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
@@ -514,11 +513,10 @@ returnPacket MCS_1(string _str1, string _str2)
 	return result;
 }
 
-// experiment MCS
-// k Match MCS(using Queue) - Fail
-returnPacket MCS_T0(string _str1, string _str2, int _k)
+
+returnPacket MCS_1_A(string _str1, string _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -528,192 +526,170 @@ returnPacket MCS_T0(string _str1, string _str2, int _k)
 
 	string mcs = "";
 
-	stack<MyGhs> stk;
-	MyGhs init{ 0, -1, -1, 0 };
+	stack<leeGhsA> stk;
+	leeGhsA init{ -1, -1, 0, true };
 	stk.push(init);
 
-	vector<queue<MyGhs>> wthQs;
-	queue<MyGhs> newQue;
-	wthQs.push_back(newQue);
-
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	int iEnd = len1; int jEnd = len2;
 
 	while (!stk.empty())
 	{
-
-		MyGhs curGHS = stk.top();
-
-		bool isPoped = false;
-
-		// (1) _kë§Œí¼ íƒìƒ‰ì„ í–ˆìœ¼ë‚˜ _k ë³´ë‹¤ ì‘ì€ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°
-		if (curGHS.s >= _k * 2)
-		{
-			if (wthQs.size() > curGHS.id)
-			{
-				while (!wthQs[curGHS.id].empty())
-				{
-					MyGhs wthGhs = wthQs[curGHS.id].front();
-					wthQs[curGHS.id].pop();
-					if (wthGhs.g < iEnd && wthGhs.h < jEnd)
-					{
-						MyGhs next_GHS{ curGHS.id + 1, wthGhs.g, wthGhs.h, 0 };
-						stk.push(next_GHS);
-						isPoped = true;
-						break;
-					}
-				}
-			}
-		}
-		// (2) Xì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (3) Yì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (2)ì™€ (3)ì˜ ê²½ìš° íƒìƒ‰ì´ ì¢…ë£Œë  ì˜ˆì •ì´ë‹¤. ê·¸ëŸ¬ë‚˜ íƒìƒ‰ì´ ì¢…ë£Œë˜ì—ˆì„ ë•Œ, iEndì™€ jEndë¥¼ ê°±ì‹ í•˜ë”ë¼ë„
-		// new_iEnd(new_jEnd)ì™€ old_iEnd(old_jEnd) ì‚¬ì´ì— ê³µí†µë¬¸ìê°€ ë³´ë¥˜ëœ ìƒíƒœë¡œ ë‚¨ì„ ìˆ˜ ìˆë‹¤.
-		// ì¦‰, ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ë“¤ì–´ê°€ì§€ ì•Šì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ (1)ì˜ ê²½ìš°ì™€ ê°™ì´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
-		else if ((curGHS.s % 2 == 0 && curGHS.g + curGHS.s / 2 + 1 >= iEnd) ||
-			(curGHS.s % 2 == 1 && curGHS.h + (curGHS.s + 1) / 2 >= jEnd))
-		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
-			if (wthQs.size() > curGHS.id)
-			{
-				while (!wthQs[curGHS.id].empty())
-				{
-					MyGhs wthGhs = wthQs[curGHS.id].front();
-					wthQs[curGHS.id].pop();
-					if (wthGhs.g < iEnd && wthGhs.h < jEnd)
-					{
-						MyGhs next_GHS{ curGHS.id + 1, wthGhs.g, wthGhs.h, 0 };
-						stk.push(next_GHS);
-						isPoped = true;
-						break;
-					}
-				}
-			}
-		}
-
-		if (isPoped) continue;
-
+		leeGhsA curGHS = stk.top();
 		stk.pop();
 
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
-		if (curGHS.s % 2 == 0)
+		if (curGHS.toggle)
 		{
-			int searching_g = curGHS.g + curGHS.s / 2 + 1;
-
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
-			if (searching_g < iEnd)
+			// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			if (curGHS.s % 2 == 0)
 			{
-				MyGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
-				stk.push(next_GHS);
+				int searching_g = curGHS.g + curGHS.s / 2 + 1;
 
-				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
-
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
-				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
+				// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_g < iEnd)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
-					if (searching_g <= curGHS.g + _k && finding_h <= curGHS.h + _k)
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
+
+					int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
 					{
-						MyGhs next_GHS{ curGHS.id + 1, searching_g, finding_h, 0 };
+						// toggle change
+						leeGhsA next_GHS{ searching_g, finding_h, 0, !curGHS.toggle };
 						stk.push(next_GHS);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
-					else
-					{
-						while (wthQs.size() <= curGHS.id)
-						{
-							queue<MyGhs> newQue;
-							wthQs.push_back(newQue);
-						}
-						MyGhs wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s };
-						wthQs[curGHS.id].push(wth_GHS);
-					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
-			else if (curGHS.g >= 0)
+			// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			else
 			{
-				mcs = _str1[curGHS.g] + mcs;
+				int searching_h = curGHS.h + (curGHS.s + 1) / 2;
 
-				iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
-				jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+				// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_h < jEnd)
+				{
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
 
-				if (iEnd == 0 || jEnd == 0 ||
-					iEnd == -1 || jEnd == -1 ||
-					iEnd == _str1.npos || jEnd == _str2.npos)
-					break;
+					int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-				// ì•„ì§ wthQs[curGHS.id]ì— ë‚¨ì•„ ìˆëŠ” ê²ƒë“¤ì€ ë¬´ì¡°ê±´ g >= iEnd ë˜ëŠ” h >= jEndì¼ ìˆ˜ë°–ì— ì—†ë‹¤.
-				// ì™œëƒí•˜ë©´ ì•„ì§ ë‚¨ì•„ìˆë‹¤ëŠ” ê²ƒì€ ì¶•ì†Œëœ íƒìƒ‰ ë²”ìœ„ê°€ _kë¥¼ ë„˜ì§€ ì•Šì•„ì„œ ë¹¼ì§€ ì•ŠëŠ” ê²ƒì´ê³ ,
-				// wthQs[curGHS.id]ì— ì €ì¥ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì€ finding_g(h)ê°€ _kë²”ìœ„ë¥¼ ë„˜ê¸° ë•Œë¬¸ì´ë‹¤.
-				// ìµœì•…ì˜ ê²½ìš° _k * 2ë²ˆ í˜¸ì¶œí•˜ë¯€ë¡œ ìƒìˆ˜ ì‹œê°„ì´ ê±¸ë¦°ë‹¤.
-				if (wthQs.size() > curGHS.id)
-					while (!wthQs[curGHS.id].empty())
-						wthQs[curGHS.id].pop();
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
+					{
+						leeGhsA next_GHS{ finding_g, searching_h, 0, !curGHS.toggle };
+						stk.push(next_GHS);
+					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
+				}
 			}
 		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
 		else
 		{
-			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
-
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
-			if (searching_h < jEnd)
+			// s°¡ Â¦¼öÀÌ¸é str1(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			if (curGHS.s % 2 == 0)
 			{
-				MyGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
-				stk.push(next_GHS);
+				int searching_h = curGHS.h + curGHS.s / 2 + 1;
 
-				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
-
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
-				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
+				// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_h < jEnd)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
-					if (searching_h <= curGHS.h + _k && finding_g <= curGHS.g + _k)
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
+
+					int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
 					{
-						MyGhs next_GHS{ curGHS.id + 1, finding_g, searching_h, 0 };
+						leeGhsA next_GHS{ finding_g, searching_h, 0, !curGHS.toggle };
 						stk.push(next_GHS);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
-					else
-					{
-						while (wthQs.size() <= curGHS.id)
-						{
-							queue<MyGhs> newQue;
-							wthQs.push_back(newQue);
-						}
-						MyGhs wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s };
-						wthQs[curGHS.id].push(wth_GHS);
-					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
 
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
-			else if (curGHS.g >= 0)
+			// s°¡ È¦¼öÀÌ¸é str2(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			else
 			{
-				mcs = _str1[curGHS.g] + mcs;
+				int searching_g = curGHS.g + (curGHS.s + 1) / 2;
 
-				if (wthQs.size() > curGHS.id)
-					while (!wthQs[curGHS.id].empty())
-						wthQs[curGHS.id].pop();
+				// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_g < iEnd)
+				{
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
 
-				iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
-				jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
-				if (iEnd == 0 || jEnd == 0 ||
-					iEnd == -1 || jEnd == -1 ||
-					iEnd == _str1.npos || jEnd == _str2.npos)
-					break;
+					int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
+					{
+						leeGhsA next_GHS{ searching_g, finding_h, 0, !curGHS.toggle };
+						stk.push(next_GHS);
+					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
+				}
 			}
 		}
+
+		
 	}
 
-	/*cout << "MCS Shin Lenght : " << mcs.length() << '\n';
-	cout << "MCS Shin : ";
+	/*cout << "MCS Sakai Lenght : " << mcs.length() << '\n';
+	cout << "MCS Sakai : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
@@ -721,286 +697,13 @@ returnPacket MCS_T0(string _str1, string _str2, int _k)
 	return result;
 }
 
-// k match compared MCS (using Deque) - Fail
-returnPacket MCS_T1(string _str1, string _str2, int _k)
-{
-	// ì‹œê°„ ì¸¡ì •
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
-
-	int len1 = (int)_str1.length();
-	int len2 = (int)_str2.length();
-
-	string mcs = "";
-
-	stack<MyGhs> stk;
-	MyGhs init{ 0, -1, -1, 0 };
-	stk.push(init);
-
-	vector<deque<MyGhs>> wthQs;
-	deque<MyGhs> newQue;
-	wthQs.push_back(newQue);
-
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
-	int iEnd = len1; int jEnd = len2;
-
-	while (!stk.empty())
-	{
-
-		MyGhs curGHS = stk.top();
-
-		bool isPoped = false;
-
-		// (1) _kë§Œí¼ íƒìƒ‰ì„ í–ˆìœ¼ë‚˜ _k ë³´ë‹¤ ì‘ì€ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°
-		if (curGHS.s >= _k * 2)
-		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
-			if (wthQs.size() > curGHS.id)
-			{
-				// ê°€ì¥ ì•ì— ìˆëŠ” ê²ƒì„ ë¨¼ì € êº¼ë‚¸ë‹¤.
-				MyGhs wthGhs = { -1, -1, -1, -1 };
-				while (!wthQs[curGHS.id].empty())
-				{
-					MyGhs tmpGhs = wthQs[curGHS.id].front();
-					wthQs[curGHS.id].pop_front();
-					if (tmpGhs.g < iEnd && tmpGhs.h < jEnd)
-					{
-						wthGhs = tmpGhs;
-						break;
-					}
-				}
-				// êº¼ë‚¸ ê²Œ ì—†ìœ¼ë©´ ë‹¤ìŒ íƒìƒ‰ìœ¼ë¡œ ë„˜ì–´ê°„ë‹¤.
-				if (wthGhs.id >= 0)
-				{
-					// êº¼ëƒˆìŒì—ë„ í•œ ê°œ ì´ìƒ ë‚¨ì•„ìˆë‹¤ë©´ ë¹„êµë¥¼ ìœ„í•´ êº¼ë‚¸ë‹¤.
-					MyGhs compared_ghs = { -1, -1, -1, -1 };
-					while (!wthQs[curGHS.id].empty())
-					{
-						MyGhs tmpGhs = wthQs[curGHS.id].front();
-						wthQs[curGHS.id].pop_front();
-						if (tmpGhs.g < iEnd && tmpGhs.h < jEnd)
-						{
-							compared_ghs = tmpGhs;
-							break;
-						}
-					}
-					// ë¹„êµë¥¼ ìœ„í•´ êº¼ë‚¼ ê²ƒì´ ì—†ë‹¤ë©´ ì•ì„œ êº¼ë‚´ë‘” ê²ƒì„ ì‚¬ìš©í•œë‹¤.
-					// ë§Œì•½ ë¹„êµë¥¼ ìœ„í•´ êº¼ë‚¸ ê²ƒì´ ìˆë‹¤ë©´ í–¥í›„ íƒìƒ‰ ë²”ìœ„ë¥¼ ë” í¬ê²Œ ë§Œë“œëŠ” ê²ƒì„ ì„ íƒí•˜ê³ , ë‹¤ë¥¸ í•˜ë‚˜ëŠ” ë‹¤ì‹œ íì— ì§‘ì–´ë„£ëŠ”ë‹¤.
-					if (compared_ghs.id >= 0)
-					{
-						int minLen_by_wthGHS = min(iEnd - wthGhs.g, jEnd - wthGhs.h);
-						int minLen_by_comp = min(iEnd - compared_ghs.g, jEnd - compared_ghs.h);
-						if (minLen_by_wthGHS >= minLen_by_comp)
-						{
-							wthQs[curGHS.id].push_front(compared_ghs);
-						}
-						else
-						{
-							wthQs[curGHS.id].push_front(wthGhs);
-							wthGhs = compared_ghs;
-						}
-					}
-
-					MyGhs next_GHS{ curGHS.id + 1, wthGhs.g, wthGhs.h, 0 };
-					stk.push(next_GHS);
-					isPoped = true;
-				}
-			}
-		}
-		// (2) Xì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (3) Yì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (2)ì™€ (3)ì˜ ê²½ìš° íƒìƒ‰ì´ ì¢…ë£Œë  ì˜ˆì •ì´ë‹¤. ê·¸ëŸ¬ë‚˜ íƒìƒ‰ì´ ì¢…ë£Œë˜ì—ˆì„ ë•Œ, iEndì™€ jEndë¥¼ ê°±ì‹ í•˜ë”ë¼ë„
-		// new_iEnd(new_jEnd)ì™€ old_iEnd(old_jEnd) ì‚¬ì´ì— ê³µí†µë¬¸ìê°€ ë³´ë¥˜ëœ ìƒíƒœë¡œ ë‚¨ì„ ìˆ˜ ìˆë‹¤.
-		// ì¦‰, ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ë“¤ì–´ê°€ì§€ ì•Šì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ (1)ì˜ ê²½ìš°ì™€ ê°™ì´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
-		else if ((curGHS.s % 2 == 0 && curGHS.g + curGHS.s / 2 + 1 >= iEnd) ||
-			(curGHS.s % 2 == 1 && curGHS.h + (curGHS.s + 1) / 2 >= jEnd))
-		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
-			if (wthQs.size() > curGHS.id)
-			{
-				MyGhs wthGhs = { -1, -1, -1, -1 };
-				while (!wthQs[curGHS.id].empty())
-				{
-					MyGhs tmpGhs = wthQs[curGHS.id].front();
-					wthQs[curGHS.id].pop_front();
-					if (tmpGhs.g < iEnd && tmpGhs.h < jEnd)
-					{
-						wthGhs = tmpGhs;
-						break;
-					}
-				}
-				if (wthGhs.id >= 0)
-				{
-					MyGhs compared_ghs = { -1, -1, -1, -1 };
-					while (!wthQs[curGHS.id].empty())
-					{
-						MyGhs tmpGhs = wthQs[curGHS.id].front();
-						wthQs[curGHS.id].pop_front();
-						if (tmpGhs.g < iEnd && tmpGhs.h < jEnd)
-						{
-							compared_ghs = tmpGhs;
-							break;
-						}
-					}
-					if (compared_ghs.id >= 0)
-					{
-						int minLen_by_wthGHS = min(iEnd - wthGhs.g, jEnd - wthGhs.h);
-						int minLen_by_comp = min(iEnd - compared_ghs.g, jEnd - compared_ghs.h);
-						if (minLen_by_wthGHS >= minLen_by_comp)
-						{
-							wthQs[curGHS.id].push_front(compared_ghs);
-						}
-						else
-						{
-							wthQs[curGHS.id].push_front(wthGhs);
-							wthGhs = compared_ghs;
-						}
-					}
-
-					MyGhs next_GHS{ curGHS.id + 1, wthGhs.g, wthGhs.h, 0 };
-					stk.push(next_GHS);
-					isPoped = true;
-				}
-			}
-		}
-
-		if (isPoped) continue;
-
-		stk.pop();
-
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
-		if (curGHS.s % 2 == 0)
-		{
-			int searching_g = curGHS.g + curGHS.s / 2 + 1;
-
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
-			if (searching_g < iEnd)
-			{
-				MyGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
-				stk.push(next_GHS);
-
-				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
-
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
-				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
-				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
-					if (searching_g <= curGHS.g + _k && finding_h <= curGHS.h + _k)
-					{
-						MyGhs next_GHS{ curGHS.id + 1, searching_g, finding_h, 0 };
-						stk.push(next_GHS);
-					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
-					else
-					{
-						while (wthQs.size() <= curGHS.id)
-						{
-							deque<MyGhs> newQue;
-							wthQs.push_back(newQue);
-						}
-						MyGhs wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s };
-						wthQs[curGHS.id].push_back(wth_GHS);
-					}
-				}
-			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
-			else if (curGHS.g >= 0)
-			{
-				mcs = _str1[curGHS.g] + mcs;
-
-				iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
-				jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
-
-				if (iEnd == 0 || jEnd == 0 ||
-					iEnd == -1 || jEnd == -1 ||
-					iEnd == _str1.npos || jEnd == _str2.npos)
-					break;
-
-				// ì•„ì§ wthQs[curGHS.id]ì— ë‚¨ì•„ ìˆëŠ” ê²ƒë“¤ì€ ë¬´ì¡°ê±´ g >= iEnd ë˜ëŠ” h >= jEndì¼ ìˆ˜ë°–ì— ì—†ë‹¤.
-				// ì™œëƒí•˜ë©´ ì•„ì§ ë‚¨ì•„ìˆë‹¤ëŠ” ê²ƒì€ ì¶•ì†Œëœ íƒìƒ‰ ë²”ìœ„ê°€ _kë¥¼ ë„˜ì§€ ì•Šì•„ì„œ ë¹¼ì§€ ì•ŠëŠ” ê²ƒì´ê³ ,
-				// wthQs[curGHS.id]ì— ì €ì¥ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì€ finding_g(h)ê°€ _kë²”ìœ„ë¥¼ ë„˜ê¸° ë•Œë¬¸ì´ë‹¤.
-				// ìµœì•…ì˜ ê²½ìš° _k * 2ë²ˆ í˜¸ì¶œí•˜ë¯€ë¡œ ìƒìˆ˜ ì‹œê°„ì´ ê±¸ë¦°ë‹¤.
-				if (wthQs.size() > curGHS.id)
-					while (!wthQs[curGHS.id].empty())
-						wthQs[curGHS.id].pop_front();
-			}
-		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
-		else
-		{
-			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
-
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
-			if (searching_h < jEnd)
-			{
-				MyGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
-				stk.push(next_GHS);
-
-				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
-
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
-				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
-				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
-					if (searching_h <= curGHS.h + _k && finding_g <= curGHS.g + _k)
-					{
-						MyGhs next_GHS{ curGHS.id + 1, finding_g, searching_h, 0 };
-						stk.push(next_GHS);
-					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
-					else
-					{
-						while (wthQs.size() <= curGHS.id)
-						{
-							deque<MyGhs> newQue;
-							wthQs.push_back(newQue);
-						}
-						MyGhs wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s };
-						wthQs[curGHS.id].push_back(wth_GHS);
-					}
-
-				}
-			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
-			else if (curGHS.g >= 0)
-			{
-				mcs = _str1[curGHS.g] + mcs;
-
-				if (wthQs.size() > curGHS.id)
-					while (!wthQs[curGHS.id].empty())
-						wthQs[curGHS.id].pop_front();
-
-				iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
-				jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
-				if (iEnd == 0 || jEnd == 0 ||
-					iEnd == -1 || jEnd == -1 ||
-					iEnd == _str1.npos || jEnd == _str2.npos)
-					break;
-			}
-		}
-	}
-
-	/*cout << "MCS Shin Lenght : " << mcs.length() << '\n';
-	cout << "MCS Shin : ";
-	cout << (mcs + '\0') << '\n';*/
-
-	// ì‹œê°„ ì¸¡ì •
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
-
-	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
-	return result;
-}
 
 // k match Linear Max Search MCS (using vector)
 // The Maximal Common Subsequence algorithms of Hyeonjun Shin and Jeong Seop Sim.
-// ì‹ í˜„ì¤€, & ì‹¬ì •ì„­. (2022). ë‘ ë¬¸ìì—´ì˜ ê·¹ëŒ€ê³µí†µë¶€ë¶„ì„œì—´ì„ ì°¾ëŠ” ìƒˆë¡œìš´ ì•Œê³ ë¦¬ì¦˜. 2022ë…„ í•œêµ­ì†Œí”„íŠ¸ì›¨ì–´ì¢…í•©í•™ìˆ ëŒ€íšŒ ë…¼ë¬¸ì§‘, 1212-1214.
+// ½ÅÇöÁØ, & ½ÉÁ¤¼·. (2022). µÎ ¹®ÀÚ¿­ÀÇ ±Ø´ë°øÅëºÎºĞ¼­¿­À» Ã£´Â »õ·Î¿î ¾Ë°í¸®Áò. 2022³â ÇÑ±¹¼ÒÇÁÆ®¿ş¾îÁ¾ÇÕÇĞ¼ú´ëÈ¸ ³í¹®Áı, 1212-1214.
 // Hyeonjun Shin, & Jeon Seop Sim. A New Algorithm of Finding a Maximal Common Subsequence of Two Strings. Korea Software Congress 2022, 1212-1214.
 int iEnd5, jEnd5;
-bool compGHS(const PQGhs _a, const PQGhs _b)
+bool compGHS(const kcGHS _a, const kcGHS _b)
 {
 	int min_by_a = iEnd5 - _a.g; int max_by_a = jEnd5 - _a.h;
 	int min_by_b = iEnd5 - _b.g; int max_by_b = jEnd5 - _b.h;
@@ -1017,9 +720,9 @@ bool compGHS(const PQGhs _a, const PQGhs _b)
 		return max_by_a >= max_by_b;
 	}
 }
-returnPacket MCS_T2(string _str1, string _str2, int _k)
+returnPacket MCS_T1(string _str1, string _str2, int _k)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -1029,64 +732,68 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 
 	string mcs = "";
 
-	stack<PQGhs> stk;
-	PQGhs init{ 0, -1, -1, 0 };
+	stack<kcGHS> stk;
+	kcGHS init{ 0, -1, -1, 0 };
 	stk.push(init);
 
-	vector<vector<PQGhs>> wthPqs;
-	vector<PQGhs> init_wthpq;
+	vector<vector<kcGHS>> wthPqs;
+	vector<kcGHS> init_wthpq;
 	wthPqs.push_back(init_wthpq);
 
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	iEnd5 = len1, jEnd5 = len2;
 
-	// check ìš©
+	// check ¿ë
 	int GHS_id = 1;
 
 	while (!stk.empty())
 	{
-		PQGhs curGHS = stk.top();
+		kcGHS curGHS = stk.top();
 
 		bool isWthPoped = false;
 
-		// (1) _kë§Œí¼ íƒìƒ‰ì„ í–ˆìœ¼ë‚˜ _k ë³´ë‹¤ ì‘ì€ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°
-		// (2) Xì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (3) Yì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (2)ì™€ (3)ì˜ ê²½ìš° íƒìƒ‰ì´ ì¢…ë£Œë  ì˜ˆì •ì´ë‹¤. ê·¸ëŸ¬ë‚˜ íƒìƒ‰ì´ ì¢…ë£Œë˜ì—ˆì„ ë•Œ, iEndì™€ jEndë¥¼ ê°±ì‹ í•˜ë”ë¼ë„
-		// new_iEnd(new_jEnd)ì™€ old_iEnd(old_jEnd) ì‚¬ì´ì— ê³µí†µë¬¸ìê°€ ë³´ë¥˜ëœ ìƒíƒœë¡œ ë‚¨ì„ ìˆ˜ ìˆë‹¤.
-		// ì¦‰, ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ë“¤ì–´ê°€ì§€ ì•Šì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ (1)ì˜ ê²½ìš°ì™€ ê°™ì´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
+		// (1) _k¸¸Å­ Å½»öÀ» ÇßÀ¸³ª _k º¸´Ù ÀÛÀº ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£Áö ¸øÇÑ °æ¿ì
+		// (2) X¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (3) Y¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (2)¿Í (3)ÀÇ °æ¿ì Å½»öÀÌ Á¾·áµÉ ¿¹Á¤ÀÌ´Ù. ±×·¯³ª Å½»öÀÌ Á¾·áµÇ¾úÀ» ¶§, iEnd¿Í jEnd¸¦ °»½ÅÇÏ´õ¶óµµ
+		// new_iEnd(new_jEnd)¿Í old_iEnd(old_jEnd) »çÀÌ¿¡ °øÅë¹®ÀÚ°¡ º¸·ùµÈ »óÅÂ·Î ³²À» ¼ö ÀÖ´Ù.
+		// Áï, º¸·ù °øÅë¹®ÀÚ°¡ µé¾î°¡Áö ¾ÊÀ» ¼ö ÀÖÀ¸¹Ç·Î (1)ÀÇ °æ¿ì¿Í °°ÀÌ Ã³¸®ÇØ¾ß ÇÑ´Ù.
 		if (curGHS.s >= _k * 2)
 		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
+			// º¸·ù °øÅë¹®ÀÚ°¡ ¾ø´Ù¸é »ó°ü ¾ø´Ù.
 			if (wthPqs.size() > curGHS.id)
 			{
-				// ë³´ë¥˜ í•œ ê²ƒì´ ì—†ìœ¼ë©´ ì¼ë°˜ íƒìƒ‰ìœ¼ë¡œ ì§„í–‰
+				// º¸·ù ÇÑ °ÍÀÌ ¾øÀ¸¸é ÀÏ¹İ Å½»öÀ¸·Î ÁøÇà
 				if (!wthPqs[curGHS.id].empty())
 				{
-					// ìµœì´ˆ ì¶”ì¶œ ì •ë ¬
-					// ì¶”ì¶œ ì´í›„ì— ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¬ë¼ì§€ì§€ë§Œ ê·¸ ë‹¬ë¼ì§„ ì—”ë“œ ë°”ìš´ë“œ ì´í›„ì— ê¸°ì¡´ì— ìˆëŠ” ë³´ë¥˜ ì¹œêµ¬ë“¤ê³¼ ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¤ë¥¸ ë³´ë¥˜ ì¹œêµ¬ë“¤ì´ ë“¤ì–´ì˜¤ëŠ” ê²ƒì€ ì—†ë‹¤. by Lemma 2
-					// ê°€ì¥ íƒìƒ‰ ë²”ìœ„ê°€ ê¸´ ê±° ë¨¼ì € êº¼ë‚´ê¸°
-					// ì„ í˜• íƒìƒ‰ì„ í•˜ë”ë¼ë„ ì—”ë“œ ë°”ìš´ë“œë¥¼ ë„˜ì–´ë²„ë¦¬ëŠ” ê²ƒì€ ìµœì†Œ í–¥í›„ íƒìƒ‰ë²”ìœ„ê°€ ë§ˆì´ë„ˆìŠ¤ì´ë¯€ë¡œ ê°€ì¥ í›„ìˆœìœ„ì´ë‹¤.
-					PQGhs wthGHS = wthPqs[curGHS.id][0];
+					// ÃÖÃÊ ÃßÃâ Á¤·Ä
+					// ÃßÃâ ÀÌÈÄ¿¡ ¿£µå ¹Ù¿îµå°¡ ´Ş¶óÁöÁö¸¸ ±× ´Ş¶óÁø ¿£µå ¹Ù¿îµå ÀÌÈÄ¿¡ ±âÁ¸¿¡ ÀÖ´Â º¸·ù Ä£±¸µé°ú ¿£µå ¹Ù¿îµå°¡ ´Ù¸¥ º¸·ù Ä£±¸µéÀÌ µé¾î¿À´Â °ÍÀº ¾ø´Ù. by Lemma 2
+					// °¡Àå Å½»ö ¹üÀ§°¡ ±ä °Å ¸ÕÀú ²¨³»±â
+					// ¼±Çü Å½»öÀ» ÇÏ´õ¶óµµ ¿£µå ¹Ù¿îµå¸¦ ³Ñ¾î¹ö¸®´Â °ÍÀº ÃÖ¼Ò ÇâÈÄ Å½»ö¹üÀ§°¡ ¸¶ÀÌ³Ê½ºÀÌ¹Ç·Î °¡Àå ÈÄ¼øÀ§ÀÌ´Ù.
+					kcGHS wthGHS = wthPqs[curGHS.id][0];
+					int maxIdx = 0;
 					for (int i = 1; i < wthPqs[curGHS.id].size(); i++)
 					{
-						PQGhs cur = wthPqs[curGHS.id][i];
-						if (compGHS(cur, wthGHS))	// curê°€ ë” ê¸¸ê²Œ ë§Œë“¤ë©´ true ë°˜í™˜
+						kcGHS cur = wthPqs[curGHS.id][i];
+						if (compGHS(cur, wthGHS))	// cur°¡ ´õ ±æ°Ô ¸¸µé¸é true ¹İÈ¯
 						{
+							maxIdx = i;
 							wthGHS = cur;
 						}
 					}
 
-					// idì— ë§ëŠ” ê±¸ êº¼ë‚´ë¯€ë¡œ End ë°”ìš´ë“œë§Œ ì‹ ê²½ì“°ë©´ ëœë‹¤.
+					// id¿¡ ¸Â´Â °É ²¨³»¹Ç·Î End ¹Ù¿îµå¸¸ ½Å°æ¾²¸é µÈ´Ù.
 					if (wthGHS.g < iEnd5 && wthGHS.h < jEnd5)
 					{
 						isWthPoped = true;
 
-						// stkì— ìŒ“ì„ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
+						// stk¿¡ ½×À» ±¸Á¶Ã¼ ÃÊ±âÈ­
 						wthGHS.id = GHS_id++;
 						wthGHS.s = 0;
 
 						stk.push(wthGHS);
+
+						wthPqs[curGHS.id].erase(wthPqs[curGHS.id].begin() + maxIdx);
 					}
 					else
 					{
@@ -1098,36 +805,40 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 		else if ((curGHS.s % 2 == 0 && curGHS.g + curGHS.s / 2 + 1 >= iEnd5) ||
 			(curGHS.s % 2 == 1 && curGHS.h + (curGHS.s + 1) / 2 >= jEnd5))
 		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
+			// º¸·ù °øÅë¹®ÀÚ°¡ ¾ø´Ù¸é »ó°ü ¾ø´Ù.
 			if (wthPqs.size() > curGHS.id)
 			{
-				// ë³´ë¥˜ í•œ ê²ƒì´ ì—†ìœ¼ë©´ ì¼ë°˜ íƒìƒ‰ìœ¼ë¡œ ì§„í–‰
+				// º¸·ù ÇÑ °ÍÀÌ ¾øÀ¸¸é ÀÏ¹İ Å½»öÀ¸·Î ÁøÇà
 				if (!wthPqs[curGHS.id].empty())
 				{
-					// ìµœì´ˆ ì¶”ì¶œ ì •ë ¬
-					// ì¶”ì¶œ ì´í›„ì— ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¬ë¼ì§€ì§€ë§Œ ê·¸ ë‹¬ë¼ì§„ ì—”ë“œ ë°”ìš´ë“œ ì´í›„ì— ê¸°ì¡´ì— ìˆëŠ” ë³´ë¥˜ ì¹œêµ¬ë“¤ê³¼ ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¤ë¥¸ ë³´ë¥˜ ì¹œêµ¬ë“¤ì´ ë“¤ì–´ì˜¤ëŠ” ê²ƒì€ ì—†ë‹¤. by Lemma 2
-					// ê°€ì¥ íƒìƒ‰ ë²”ìœ„ê°€ ê¸´ ê±° ë¨¼ì € êº¼ë‚´ê¸°
-					// ì„ í˜• íƒìƒ‰ì„ í•˜ë”ë¼ë„ ì—”ë“œ ë°”ìš´ë“œë¥¼ ë„˜ì–´ë²„ë¦¬ëŠ” ê²ƒì€ ìµœì†Œ í–¥í›„ íƒìƒ‰ë²”ìœ„ê°€ ë§ˆì´ë„ˆìŠ¤ì´ë¯€ë¡œ ê°€ì¥ í›„ìˆœìœ„ì´ë‹¤.
-					PQGhs wthGHS = wthPqs[curGHS.id][0];
+					// ÃÖÃÊ ÃßÃâ Á¤·Ä
+					// ÃßÃâ ÀÌÈÄ¿¡ ¿£µå ¹Ù¿îµå°¡ ´Ş¶óÁöÁö¸¸ ±× ´Ş¶óÁø ¿£µå ¹Ù¿îµå ÀÌÈÄ¿¡ ±âÁ¸¿¡ ÀÖ´Â º¸·ù Ä£±¸µé°ú ¿£µå ¹Ù¿îµå°¡ ´Ù¸¥ º¸·ù Ä£±¸µéÀÌ µé¾î¿À´Â °ÍÀº ¾ø´Ù. by Lemma 2
+					// °¡Àå Å½»ö ¹üÀ§°¡ ±ä °Å ¸ÕÀú ²¨³»±â
+					// ¼±Çü Å½»öÀ» ÇÏ´õ¶óµµ ¿£µå ¹Ù¿îµå¸¦ ³Ñ¾î¹ö¸®´Â °ÍÀº ÃÖ¼Ò ÇâÈÄ Å½»ö¹üÀ§°¡ ¸¶ÀÌ³Ê½ºÀÌ¹Ç·Î °¡Àå ÈÄ¼øÀ§ÀÌ´Ù.
+					kcGHS wthGHS = wthPqs[curGHS.id][0];
+					int maxIdx = 0;
 					for (int i = 1; i < wthPqs[curGHS.id].size(); i++)
 					{
-						PQGhs cur = wthPqs[curGHS.id][i];
-						if (compGHS(cur, wthGHS))	// curê°€ ë” ê¸¸ê²Œ ë§Œë“¤ë©´ true ë°˜í™˜
+						kcGHS cur = wthPqs[curGHS.id][i];
+						if (compGHS(cur, wthGHS))	// cur°¡ ´õ ±æ°Ô ¸¸µé¸é true ¹İÈ¯
 						{
+							maxIdx = i;
 							wthGHS = cur;
 						}
 					}
 
-					// idì— ë§ëŠ” ê±¸ êº¼ë‚´ë¯€ë¡œ End ë°”ìš´ë“œë§Œ ì‹ ê²½ì“°ë©´ ëœë‹¤.
+					// id¿¡ ¸Â´Â °É ²¨³»¹Ç·Î End ¹Ù¿îµå¸¸ ½Å°æ¾²¸é µÈ´Ù.
 					if (wthGHS.g < iEnd5 && wthGHS.h < jEnd5)
 					{
 						isWthPoped = true;
 
-						// stkì— ìŒ“ì„ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
+						// stk¿¡ ½×À» ±¸Á¶Ã¼ ÃÊ±âÈ­
 						wthGHS.id = GHS_id++;
 						wthGHS.s = 0;
 
 						stk.push(wthGHS);
+
+						wthPqs[curGHS.id].erase(wthPqs[curGHS.id].begin() + maxIdx);
 					}
 					else
 					{
@@ -1146,43 +857,43 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 
 		stk.pop();
 
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		if (curGHS.s % 2 == 0)
 		{
 			int searching_g = curGHS.g + curGHS.s / 2 + 1;
 
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_g < iEnd5)
 			{
-				PQGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
+				kcGHS next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
 				stk.push(next_GHS);
 
 				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd5 - 1)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
 					if (searching_g <= curGHS.g + _k && finding_h <= curGHS.h + _k)
 					{
-						PQGhs next_GHS{ GHS_id++, searching_g, finding_h, 0 };
+						kcGHS next_GHS{ GHS_id++, searching_g, finding_h, 0 };
 						stk.push(next_GHS);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
 					else
 					{
 						while (wthPqs.size() <= curGHS.id)
 						{
-							vector<PQGhs> newQue;
+							vector<kcGHS> newQue;
 							wthPqs.push_back(newQue);
 						}
-						PQGhs wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s };
+						kcGHS wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s };
 						wthPqs[curGHS.id].push_back(wth_GHS);
 					}
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -1191,44 +902,44 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 				jEnd5 = _str2.find_last_of(_str1[curGHS.g], jEnd5 - 1);
 			}
 		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		else
 		{
 			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
 
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_h < jEnd5)
 			{
-				PQGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
+				kcGHS next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
 				stk.push(next_GHS);
 
 				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd5 - 1)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
 					if (searching_h <= curGHS.h + _k && finding_g <= curGHS.g + _k)
 					{
-						PQGhs next_GHS{ GHS_id++, finding_g, searching_h, 0 };
+						kcGHS next_GHS{ GHS_id++, finding_g, searching_h, 0 };
 						stk.push(next_GHS);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
 					else
 					{
 						while (wthPqs.size() <= curGHS.id)
 						{
-							vector<PQGhs> newQue;
+							vector<kcGHS> newQue;
 							wthPqs.push_back(newQue);
 						}
-						PQGhs wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s };
+						kcGHS wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s };
 						wthPqs[curGHS.id].push_back(wth_GHS);
 					}
 
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -1243,7 +954,7 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 	cout << "MCS Shin : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
@@ -1251,461 +962,384 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 	return result;
 }
 
-// k match Two Heap MCS (using Heap) - Fail
-// - using two heaps storing common characters in each string.
-int iEnd6, jEnd6;
-struct PQCompX
+
+bool compGHS_1(const ghs _a, const ghs _b)
 {
-	bool operator()(PQGhs6 _a, PQGhs6 _b)
-	{
-		int comp_iEnd = (_a.pushed_iEnd > _b.pushed_iEnd ? _a.pushed_iEnd : _b.pushed_iEnd);
-		int comp_jEnd = (_a.pushed_jEnd > _b.pushed_jEnd ? _a.pushed_jEnd : _b.pushed_jEnd);
-		int minLen_by_a, minLen_by_b;
-		int maxLen_by_a, maxLen_by_b;
+	int min_by_a = iEnd5 - _a.g; int max_by_a = jEnd5 - _a.h;
+	int min_by_b = iEnd5 - _b.g; int max_by_b = jEnd5 - _b.h;
 
-		if (comp_iEnd - _a.g < comp_jEnd - _a.h)
-		{
-			minLen_by_a = comp_iEnd - _a.g;
-			maxLen_by_a = comp_jEnd - _a.h;
-		}
-		else
-		{
-			minLen_by_a = comp_jEnd - _a.h;
-			maxLen_by_a = comp_iEnd - _a.g;
-		}
-		if (comp_iEnd - _b.g < comp_jEnd - _b.h)
-		{
-			minLen_by_b = comp_iEnd - _b.g;
-			maxLen_by_b = comp_jEnd - _b.h;
-		}
-		else
-		{
-			minLen_by_b = comp_jEnd - _b.h;
-			maxLen_by_b = comp_iEnd - _b.g;
-		}
+	if (min_by_a > max_by_a) swap(min_by_a, max_by_a);
+	if (min_by_b > max_by_b) swap(min_by_b, max_by_b);
 
-		// ë§Œì•½ ë‘˜ë‹¤ Yì—ì„œ minê°’ì„ ê°€ì§ˆ ê²½ìš°,
-		//	ì¶”ê°€ì ì¸ Lemmaì— ì˜í•˜ì—¬ Xì—ì„œì˜ ìˆœì„œëŒ€ë¡œ ì •ë ¬.
-		// ê·¸ë ‡ì§€ ì•Šì„ê²½ìš°, minLenì— ì˜í•œ ì •ë ¬ë¡œ ì •ë ¬í•˜ë©´ ë¨.
-		if (minLen_by_a < minLen_by_b)
-			return true;
-		else if (minLen_by_a > minLen_by_b)
-			return false;
-		else
-		{
-			return (_a.g >= _b.g);
-		}
-	}
-};
-struct PQCompY
+	if (min_by_a != min_by_b)
+		return min_by_a > min_by_b;
+	else
+		return max_by_a >= max_by_b;
+}
+returnPacket MCS_T1_1(string _str1, string _str2, int _k)
 {
-	bool operator()(PQGhs6 _a, PQGhs6 _b)
-	{
-		int comp_iEnd = (_a.pushed_iEnd > _b.pushed_iEnd ? _a.pushed_iEnd : _b.pushed_iEnd);
-		int comp_jEnd = (_a.pushed_jEnd > _b.pushed_jEnd ? _a.pushed_jEnd : _b.pushed_jEnd);
-		int minLen_by_a, minLen_by_b;
-		int maxLen_by_a, maxLen_by_b;
-
-		if (comp_iEnd - _a.g < comp_jEnd - _a.h)
-		{
-			minLen_by_a = comp_iEnd - _a.g;
-			maxLen_by_a = comp_jEnd - _a.h;
-		}
-		else
-		{
-			minLen_by_a = comp_jEnd - _a.h;
-			maxLen_by_a = comp_iEnd - _a.g;
-		}
-		if (comp_iEnd - _b.g < comp_jEnd - _b.h)
-		{
-			minLen_by_b = comp_iEnd - _b.g;
-			maxLen_by_b = comp_jEnd - _b.h;
-		}
-		else
-		{
-			minLen_by_b = comp_jEnd - _b.h;
-			maxLen_by_b = comp_iEnd - _b.g;
-		}
-
-		// ë§Œì•½ ë‘˜ë‹¤ Xì—ì„œ minê°’ì„ ê°€ì§ˆ ê²½ìš°,
-		//	ì¶”ê°€ì ì¸ Lemmaì— ì˜í•˜ì—¬ Yì—ì„œì˜ ìˆœì„œëŒ€ë¡œ ì •ë ¬.
-		// ê·¸ë ‡ì§€ ì•Šì„ê²½ìš°, minLenì— ì˜í•œ ì •ë ¬ë¡œ ì •ë ¬í•˜ë©´ ë¨.
-		if (minLen_by_a < minLen_by_b)
-			return true;
-		else if (minLen_by_a > minLen_by_b)
-			return false;
-		else
-		{
-			return (_a.h >= _b.h);
-		}
-	}
-};
-returnPacket MCS_T3(string _str1, string _str2, int _k)
-{
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
 
-	// ê¸¸ì´ ì¸¡ì •
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
 
 	string mcs = "";
 
-	stack<PQGhs6> ghStk;
-	PQGhs6 init{ 0, -1, -1, 0 };
-	ghStk.push(init);
-	// End Bound
-	iEnd6 = len1; jEnd6 = len2;
+	stack<ghs> stk;
+	ghs init{-1, -1, 0 };
+	stk.push(init);
 
-	// Xì—ì„œ ë°œê²¬í•œ ê³µí†µë¬¸ìë¥¼ ë³´ë¥˜í•˜ëŠ” ê²½ì™€ Yì—ì„œ ë°œê²¬í•œ ê³µí†µë¬¸ìë¥¼ ë³´ë¥˜í•˜ëŠ” ê²½ìš°ì˜ í™
-	// ê° ghë§ˆë‹¤ ë‘ê°œì˜ í™ì„ ì €ì¥í•œë‹¤.
-	vector<pair< priority_queue<PQGhs6, vector<PQGhs6>, PQCompX >, priority_queue<PQGhs6, vector<PQGhs6>, PQCompY >>> wthTwoHeaps;
-	priority_queue<PQGhs6, vector<PQGhs6>, PQCompX > initWthXPQ;
-	priority_queue<PQGhs6, vector<PQGhs6>, PQCompY > initWthYPQ;
+	stack<vector<ghs>> wthStk;
+	vector<ghs> init_wthVec;
+	wthStk.push(init_wthVec);
 
-	wthTwoHeaps.push_back({ initWthXPQ, initWthYPQ });
-	// ì¤‘ë³µ ì¿¼ë¦¬ë¥¼ ë°˜ë³µí•˜ì§€ ì•Šê¸° ìœ„í•œ ë°°ì—´
-	// ê° ë°°ì—´ì€ ë§ˆì§€ë§‰ìœ¼ë¡œ í•´ë‹¹ ìœ„ì¹˜ì—ì„œ ì¿¼ë¦¬ë¥¼ ì§„í–‰í•œ ê²½ìš°ë¥¼ ë‹´ê³  ìˆë‹¤.
-	// Worst Caseì˜ ê²½ìš°ì—ë§Œ íš¨ê³¼ê°€ ìˆë‹¤.
-	vector<int> XQueries(len1, -5);
-	vector<int> YQueries(len2, -5);
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
+	iEnd5 = len1, jEnd5 = len2;
 
-	// check ìš©
-	int GHS_id = 1;
-	long long pGHSID = 1;
-	PQGhs6 lastGHS;
-
-	while (!ghStk.empty())
+	while (!stk.empty())
 	{
-		PQGhs6 curGHS = ghStk.top();
+		ghs curGHS = stk.top();
+		vector<ghs> curWthVec = wthStk.top();
 
 		bool isWthPoped = false;
 
-		if (curGHS.s >= _k * 2)
+		// (1) _k¸¸Å­ Å½»öÀ» ÇßÀ¸³ª _k º¸´Ù ÀÛÀº ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£Áö ¸øÇÑ °æ¿ì
+		// (2) X¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (3) Y¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (2)¿Í (3)ÀÇ °æ¿ì Å½»öÀÌ Á¾·áµÉ ¿¹Á¤ÀÌ´Ù. ±×·¯³ª Å½»öÀÌ Á¾·áµÇ¾úÀ» ¶§, iEnd¿Í jEnd¸¦ °»½ÅÇÏ´õ¶óµµ
+		// new_iEnd(new_jEnd)¿Í old_iEnd(old_jEnd) »çÀÌ¿¡ °øÅë¹®ÀÚ°¡ º¸·ùµÈ »óÅÂ·Î ³²À» ¼ö ÀÖ´Ù.
+		// Áï, º¸·ù °øÅë¹®ÀÚ°¡ µé¾î°¡Áö ¾ÊÀ» ¼ö ÀÖÀ¸¹Ç·Î (1)ÀÇ °æ¿ì¿Í °°ÀÌ Ã³¸®ÇØ¾ß ÇÑ´Ù.
+		if (curGHS.s >= _k * 2 || (curGHS.s % 2 == 0 && curGHS.g + curGHS.s / 2 + 1 >= iEnd5) ||
+			(curGHS.s % 2 == 1 && curGHS.h + (curGHS.s + 1) / 2 >= jEnd5))
 		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
-			if (wthTwoHeaps.size() > curGHS.id)
+			// º¸·ùÇÑ °ÍÀÌ ¾øÀ¸¸é ÀÏ¹İ Å½»öÀ¸·Î ÁøÇà
+			if (!curWthVec.empty())
 			{
-				PQGhs6 Xpop, Ypop;
-				while (!wthTwoHeaps[curGHS.id].first.empty())
+				ghs maxWth = curWthVec[0];
+				int maxIdx = 0;
+				for (int i = 1; i < curWthVec.size(); i++)
 				{
-					Xpop = wthTwoHeaps[curGHS.id].first.top();
-
-					if (Xpop.g < iEnd6 && Xpop.h < jEnd6)
+					ghs cur = curWthVec[i];
+					if (compGHS_1(cur, maxWth))
 					{
-						break;
+						maxWth = cur;
+						maxIdx = i;
 					}
-					else
-					{
-						wthTwoHeaps[curGHS.id].first.pop();
-						Xpop.id = -1;
-					}
-				}
-				while (!wthTwoHeaps[curGHS.id].second.empty())
-				{
-					Ypop = wthTwoHeaps[curGHS.id].second.top();
-
-					if (Ypop.g < iEnd6 && Ypop.h < jEnd6)
-					{
-						break;
-					}
-					else
-					{
-						wthTwoHeaps[curGHS.id].second.pop();
-						Ypop.id = -1;
-					}
-				}
-				// ë‘˜ë‹¤ ìµœëŒ€ ë³´ë¥˜ê°€ ë‚˜íƒ€ë‚œ ê²½ìš°
-				// ë‘ ë³´ë¥˜ ê³µí†µë¬¸ì ì¤‘ ë‹¤ìŒ íƒìƒ‰ ê±°ë¦¬ë¥¼ ë” ê¸¸ê²Œ í•˜ëŠ” ê²ƒì„ ì„ íƒ
-				if (Xpop.id != -1 && Ypop.id != -1)
-				{
-					int minLen_by_X = min(iEnd6 - Xpop.g, jEnd6 - Xpop.h);
-					int minLen_by_Y = min(iEnd6 - Ypop.g, jEnd6 - Ypop.h);
-
-					// Yê°€ ë” í° ê²½ìš° Xpopì— Ypop ë„£ê¸° => ìµœì¢…ì ìœ¼ë¡œ Xpopì„ ìŠ¤íƒì— ì‚½ì…
-					if (minLen_by_X < minLen_by_Y)
-					{
-						Xpop = Ypop;
-						wthTwoHeaps[curGHS.id].second.pop();
-					}
-					else    // Xê°€ ë” í° ê²½ìš°
-						wthTwoHeaps[curGHS.id].first.pop();
-				}
-				// Xì—ì„œë§Œ ìµœì†Œ ë³´ë¥˜ê°€ ë‚˜íƒ€ë‚œ ê²½ìš°
-				else if (Xpop.id != -1)
-				{
-					wthTwoHeaps[curGHS.id].first.pop();
-				}
-				// Yì—ì„œë§Œ ìµœì†Œ ë³´ë¥˜ê°€ ë‚˜íƒ€ë‚œ ê²½ìš°
-				else if (Ypop.id != -1)
-				{
-					Xpop = Ypop;
-					wthTwoHeaps[curGHS.id].second.pop();
 				}
 
-				if (Xpop.id != -1)	// ì‚¬ìš© ê°€ëŠ¥í•œ ë³´ë¥˜ ë¬¸ìê°€ ì¡´ì¬í•˜ëŠ” ê²½ìš°
+				if (maxWth.g < iEnd5 && maxWth.h < jEnd5)
 				{
 					isWthPoped = true;
 
-					// ghStkì— ìŒ“ì„ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
-					Xpop.id = GHS_id++;
-					Xpop.s = 0;
-					Xpop.pushed_num = -2;
-					ghStk.push(Xpop);
-				}
-			}
-		}
-		else if ((curGHS.s % 2 == 0 && (curGHS.g + curGHS.s / 2 + 1 >= iEnd6 || curGHS.h + (curGHS.s + 2) / 2 >= jEnd6)) ||
-			(curGHS.s % 2 == 1 && (curGHS.h + (curGHS.s + 1) / 2 >= jEnd6 || curGHS.g + (curGHS.s + 1) / 2 + 1 >= iEnd6)))
-		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
-			if (wthTwoHeaps.size() > curGHS.id)
-			{
-				PQGhs6 Xpop, Ypop;
-				while (!wthTwoHeaps[curGHS.id].first.empty())
-				{
-					Xpop = wthTwoHeaps[curGHS.id].first.top();
+					maxWth.s = 0;
+					stk.push(maxWth);
 
-					if (Xpop.g < iEnd6 && Xpop.h < jEnd6)
-					{
-						break;
-					}
-					else
-					{
-						wthTwoHeaps[curGHS.id].first.pop();
-						Xpop.id = -1;
-					}
+					curWthVec.erase(curWthVec.begin() + maxIdx);
+					wthStk.pop();
+					wthStk.push(curWthVec);
+					vector<ghs> new_wthVec;
+					wthStk.push(new_wthVec);
 				}
-				while (!wthTwoHeaps[curGHS.id].second.empty())
+				else
 				{
-					Ypop = wthTwoHeaps[curGHS.id].second.top();
-
-					if (Ypop.g < iEnd6 && Ypop.h < jEnd6)
-					{
-						break;
-					}
-					else
-					{
-						wthTwoHeaps[curGHS.id].second.pop();
-						Ypop.id = -1;
-					}
-				}
-				// ë‘˜ë‹¤ ìµœëŒ€ ë³´ë¥˜ê°€ ë‚˜íƒ€ë‚œ ê²½ìš°
-				// ë‘ ë³´ë¥˜ ê³µí†µë¬¸ì ì¤‘ ë‹¤ìŒ íƒìƒ‰ ê±°ë¦¬ë¥¼ ë” ê¸¸ê²Œ í•˜ëŠ” ê²ƒì„ ì„ íƒ
-				if (Xpop.id != -1 && Ypop.id != -1)
-				{
-					int minLen_by_X = min(iEnd6 - Xpop.g, jEnd6 - Xpop.h);
-					int minLen_by_Y = min(iEnd6 - Ypop.g, jEnd6 - Ypop.h);
-
-					// Yê°€ ë” í° ê²½ìš° Xpopì— Ypop ë„£ê¸° => ìµœì¢…ì ìœ¼ë¡œ Xpopì„ ìŠ¤íƒì— ì‚½ì…
-					if (minLen_by_X < minLen_by_Y)
-					{
-						Xpop = Ypop;
-						wthTwoHeaps[curGHS.id].second.pop();
-					}
-					else    // Xê°€ ë” í° ê²½ìš°
-						wthTwoHeaps[curGHS.id].first.pop();
-				}
-				// Xì—ì„œë§Œ ìµœì†Œ ë³´ë¥˜ê°€ ë‚˜íƒ€ë‚œ ê²½ìš°
-				else if (Xpop.id != -1)
-				{
-					wthTwoHeaps[curGHS.id].first.pop();
-				}
-				// Yì—ì„œë§Œ ìµœì†Œ ë³´ë¥˜ê°€ ë‚˜íƒ€ë‚œ ê²½ìš°
-				else if (Ypop.id != -1)
-				{
-					Xpop = Ypop;
-					wthTwoHeaps[curGHS.id].second.pop();
-				}
-
-				if (Xpop.id != -1)	// ì‚¬ìš© ê°€ëŠ¥í•œ ë³´ë¥˜ ë¬¸ìê°€ ì¡´ì¬í•˜ëŠ” ê²½ìš°
-				{
-					isWthPoped = true;
-
-					// ghStkì— ìŒ“ì„ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
-					Xpop.id = GHS_id++;
-					Xpop.s = 0;
-					Xpop.pushed_num = -2;
-					ghStk.push(Xpop);
+					curWthVec.erase(curWthVec.begin() + maxIdx);
+					wthStk.pop();
+					wthStk.push(curWthVec);
 				}
 			}
 		}
 
 		if (isWthPoped)
 		{
-			curGHS = ghStk.top();
+			curGHS = stk.top();
+			curWthVec = wthStk.top();
 		}
 
-		ghStk.pop();
+		stk.pop();
+		wthStk.pop();
 
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		if (curGHS.s % 2 == 0)
 		{
 			int searching_g = curGHS.g + curGHS.s / 2 + 1;
 
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
-			if (searching_g < iEnd6)
+			// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+			if (searching_g < iEnd5)
 			{
-				PQGhs6 next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
-				ghStk.push(next_GHS);
+				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
+				stk.push(next_GHS);
 
-				int finding_h;
-				// ì´ì „ì— í•´ë‘ì—ˆë˜ ì¿¼ë¦¬ê°€ ìœ íš¨í•œ ê²½ìš°
-				if (XQueries[searching_g] < jEnd6 && XQueries[searching_g] > curGHS.h)
-				{
-					finding_h = XQueries[searching_g];
-				}
-				else  // ì´ì „ì— í•´ë‘ì—ˆë˜ ì¿¼ë¦¬ê°€ ìœ íš¨í•˜ì§€ ì•Šì€ ê²½ìš°
-				{
-					finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
-					XQueries[searching_g] = finding_h;
-				}
+				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
-				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd6 - 1)
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd5 - 1)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
 					if (searching_g <= curGHS.g + _k && finding_h <= curGHS.h + _k)
 					{
-						PQGhs6 new_GHS{ GHS_id++, searching_g, finding_h, 0 };
-						ghStk.push(new_GHS);
+						ghs next_GHS{ searching_g, finding_h, 0 };
+						stk.push(next_GHS);
+						wthStk.push(curWthVec);
+						vector<ghs> next_wthVec;
+						wthStk.push(next_wthVec);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
 					else
 					{
-						while (wthTwoHeaps.size() <= curGHS.id)
-						{
-							priority_queue<PQGhs6, vector<PQGhs6>, PQCompX > newXPQ;
-							priority_queue<PQGhs6, vector<PQGhs6>, PQCompY > newYPQ;
-
-							wthTwoHeaps.push_back({ newXPQ, newYPQ });
-						}
-
-						PQGhs6 new_wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s, iEnd6, jEnd6, pGHSID++ };
-						// Xì—ì„œ ì°¾ì•˜ìœ¼ë¯€ë¡œ
-						wthTwoHeaps[curGHS.id].first.push(new_wth_GHS);
+						ghs wth_GHS{ searching_g, finding_h, curGHS.s };
+						curWthVec.push_back(wth_GHS);
+						wthStk.push(curWthVec);
 					}
 				}
+				else
+					wthStk.push(curWthVec);
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
-				iEnd6 = _str1.find_last_of(_str1[curGHS.g], iEnd6 - 1);
-				jEnd6 = _str2.find_last_of(_str1[curGHS.g], jEnd6 - 1);
 
-				if (iEnd6 == 0 || jEnd6 == 0 ||
-					iEnd6 == -1 || jEnd6 == -1 ||
-					iEnd6 == _str1.npos || jEnd6 == _str2.npos)
-					break;
-
-				lastGHS = curGHS;
-				// ì•„ì§ wthQs[curGHS.id]ì— ë‚¨ì•„ ìˆëŠ” ê²ƒë“¤ì€ ë¬´ì¡°ê±´ g >= iEnd ë˜ëŠ” h >= jEndì¼ ìˆ˜ë°–ì— ì—†ë‹¤.
-				// ì™œëƒí•˜ë©´ ì•„ì§ ë‚¨ì•„ìˆë‹¤ëŠ” ê²ƒì€ ì¶•ì†Œëœ íƒìƒ‰ ë²”ìœ„ê°€ _kë¥¼ ë„˜ì§€ ì•Šì•„ì„œ ë¹¼ì§€ ì•ŠëŠ” ê²ƒì´ê³ ,
-				// wthQs[curGHS.id]ì— ì €ì¥ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì€ finding_g(h)ê°€ _kë²”ìœ„ë¥¼ ë„˜ê¸° ë•Œë¬¸ì´ë‹¤.
-				// ìµœì•…ì˜ ê²½ìš° _k * 2ë²ˆ í˜¸ì¶œí•˜ë¯€ë¡œ O(_klog_k) ì‹œê°„ì´ ê±¸ë¦°ë‹¤.
-				if (wthTwoHeaps.size() > curGHS.id)
-				{
-					if (!wthTwoHeaps[curGHS.id].first.empty() || !wthTwoHeaps[curGHS.id].second.empty())
-					{
-						system("PASUE");
-					}
-					while (!wthTwoHeaps[curGHS.id].first.empty())
-						wthTwoHeaps[curGHS.id].first.pop();
-					while (!wthTwoHeaps[curGHS.id].second.empty())
-						wthTwoHeaps[curGHS.id].second.pop();
-				}
+				iEnd5 = _str1.find_last_of(_str1[curGHS.g], iEnd5 - 1);
+				jEnd5 = _str2.find_last_of(_str1[curGHS.g], jEnd5 - 1);
 			}
 		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		else
 		{
 			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
 
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
-			if (searching_h < jEnd6)
+			// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+			if (searching_h < jEnd5)
 			{
-				PQGhs6 next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
-				ghStk.push(next_GHS);
+				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
+				stk.push(next_GHS);
 
-				int finding_g;
-				// ì´ì „ì— í•´ë‘ì—ˆë˜ ì¿¼ë¦¬ê°€ ìœ íš¨í•œ ê²½ìš°
-				if (YQueries[searching_h] < iEnd6 && YQueries[searching_h] > curGHS.g)
+				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd5 - 1)
 				{
-					finding_g = YQueries[searching_h];
-				}
-				else  // ì´ì „ì— í•´ë‘ì—ˆë˜ ì¿¼ë¦¬ê°€ ìœ íš¨í•˜ì§€ ì•Šì€ ê²½ìš°
-				{
-					finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
-					YQueries[searching_h] = finding_g;
-				}
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
-				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd6 - 1)
-				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
 					if (searching_h <= curGHS.h + _k && finding_g <= curGHS.g + _k)
 					{
-						PQGhs6 new_GHS{ GHS_id++, finding_g, searching_h, 0 };
-						ghStk.push(new_GHS);
+						ghs next_GHS{ finding_g, searching_h, 0 };
+						stk.push(next_GHS);
+						wthStk.push(curWthVec);
+						vector<ghs> next_wthVec;
+						wthStk.push(next_wthVec);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
 					else
 					{
-						while (wthTwoHeaps.size() <= curGHS.id)
-						{
-							priority_queue<PQGhs6, vector<PQGhs6>, PQCompX > newXPQ;
-							priority_queue<PQGhs6, vector<PQGhs6>, PQCompY > newYPQ;
-
-							wthTwoHeaps.push_back({ newXPQ, newYPQ });
-						}
-						PQGhs6 new_wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s, iEnd6, jEnd6, pGHSID++ };
-						// Yì—ì„œ ì°¾ì•˜ìœ¼ë¯€ë¡œ
-						wthTwoHeaps[curGHS.id].second.push(new_wth_GHS);
+						ghs wth_GHS{ finding_g, searching_h, curGHS.s };
+						curWthVec.push_back(wth_GHS);
+						wthStk.push(curWthVec);
 					}
-
 				}
+				else
+					wthStk.push(curWthVec);
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
-				iEnd6 = _str1.find_last_of(_str1[curGHS.g], iEnd6 - 1);
-				jEnd6 = _str2.find_last_of(_str1[curGHS.g], jEnd6 - 1);
 
-				if (curGHS.g != iEnd6 && curGHS.h != jEnd6)
-					cout << "IJ wrong" << endl;
-
-				if (iEnd6 == 0 || jEnd6 == 0 ||
-					iEnd6 == -1 || jEnd6 == -1 ||
-					iEnd6 == _str1.npos || jEnd6 == _str2.npos)
-					break;
-
-				lastGHS = curGHS;
-
-				// ì•„ì§ wthQs[curGHS.id]ì— ë‚¨ì•„ ìˆëŠ” ê²ƒë“¤ì€ ë¬´ì¡°ê±´ g >= iEnd ë˜ëŠ” h >= jEndì¼ ìˆ˜ë°–ì— ì—†ë‹¤.
-				// ì™œëƒí•˜ë©´ ì•„ì§ ë‚¨ì•„ìˆë‹¤ëŠ” ê²ƒì€ ì¶•ì†Œëœ íƒìƒ‰ ë²”ìœ„ê°€ _kë¥¼ ë„˜ì§€ ì•Šì•„ì„œ ë¹¼ì§€ ì•ŠëŠ” ê²ƒì´ê³ ,
-				// wthQs[curGHS.id]ì— ì €ì¥ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì€ finding_g(h)ê°€ _kë²”ìœ„ë¥¼ ë„˜ê¸° ë•Œë¬¸ì´ë‹¤.
-				// ìµœì•…ì˜ ê²½ìš° _k * 2ë²ˆ í˜¸ì¶œí•˜ë¯€ë¡œ O(_klog_k) ì‹œê°„ì´ ê±¸ë¦°ë‹¤.
-				if (wthTwoHeaps.size() > curGHS.id)
-				{
-					if (!wthTwoHeaps[curGHS.id].first.empty() || !wthTwoHeaps[curGHS.id].second.empty())
-					{
-						system("PASUE");
-					}
-					while (!wthTwoHeaps[curGHS.id].first.empty())
-						wthTwoHeaps[curGHS.id].first.pop();
-					while (!wthTwoHeaps[curGHS.id].second.empty())
-						wthTwoHeaps[curGHS.id].second.pop();
-				}
+				iEnd5 = _str1.find_last_of(_str1[curGHS.g], iEnd5 - 1);
+				jEnd5 = _str2.find_last_of(_str1[curGHS.g], jEnd5 - 1);
 			}
 		}
 	}
 
-	// ì‹œê°„ ì¸¡ì •
+	/*cout << "MCS Shin Lenght : " << mcs.length() << '\n';
+	cout << "MCS Shin : ";
+	cout << (mcs + '\0') << '\n';*/
+
+	// ½Ã°£ ÃøÁ¤
+	end_t = clock();
+	result_t = (double)(end_t - start_t);
+
+	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
+	return result;
+}
+
+
+// ½ÇÆĞÁß
+int iEnd6; int jEnd6;
+bool compPOS(const pair<int,int> _a, const pair<int,int> _b)
+{
+	int min_by_a = iEnd6 - _a.first; int max_by_a = jEnd6 - _a.second;
+	int min_by_b = iEnd6 - _b.first; int max_by_b = jEnd6 - _b.second;
+
+	if (min_by_a > max_by_a) swap(min_by_a, max_by_a);
+	if (min_by_b > max_by_b) swap(min_by_b, max_by_b);
+
+	if (min_by_a != min_by_b)
+		return min_by_a > min_by_b;
+	else
+		return max_by_a >= max_by_b;
+}
+returnPacket MCS_T2(string _str1, string _str2, int _k)
+{
+	// ½Ã°£ ÃøÁ¤
+	clock_t start_t, end_t;
+	double result_t;
+	start_t = clock();
+
+	int len1 = (int)_str1.length();
+	int len2 = (int)_str2.length();
+
+	string mcs = "";
+
+	stack<krGHS> stk;
+	krGHS init{ 0, -1, -1, 1, 1, false };
+	stk.push(init);
+
+	vector<vector<pair<int, int>>> wthVec(len1 * 2 + 4);
+
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
+	iEnd6 = len1, jEnd6 = len2;
+	
+	int ghsId = 1;
+	while (!stk.empty())
+	{
+		krGHS curGHS = stk.top();
+
+		// X¿Í Y¿¡¼­ Å½»öÇÒ ¹®ÀÚÀÇ À§Ä¡¸¦ ±¸ÇÑ´Ù.
+		int searching_g = curGHS.g + curGHS.gs;
+		int searching_h = curGHS.h + curGHS.hs;
+
+		if (!wthVec[curGHS.id].empty())
+		{
+			pair<int, int> bestWth = wthVec[curGHS.id][0];
+			int bestIdx = 0;
+			for (int i = 1; i < wthVec[curGHS.id].size(); i++)
+			{
+				if (compPOS(wthVec[curGHS.id][i], bestWth))
+				{
+					bestWth = wthVec[curGHS.id][i];
+					bestIdx = i;
+				}
+			}
+
+			wthVec[curGHS.id].erase(wthVec[curGHS.id].begin() + bestIdx);
+
+			if (bestWth.first < iEnd6 && bestWth.second < jEnd6)
+			{
+				krGHS new_ghs{ ghsId++, bestWth.first, bestWth.second, 1, 1, false };
+				stk.push(new_ghs);
+			}
+			continue;
+		}
+
+		stk.pop();
+
+		// µÎ °÷ ¸ğµÎ Å½»ö ¹üÀ§¸¦ ³ÑÁö ¾Ê´Â °æ¿ì
+		if (searching_g < iEnd6 && searching_h < jEnd6)
+		{
+			int finding_h, finding_g;
+
+			if (!curGHS.isKrunned)
+			{
+				for (int i = 0; i < _k; i++)
+				{
+					// Å½»öÇÑ ¹®ÀÚ°¡ ¹Û¿¡ ÀÖÀ¸¸é find_first_of => -1·Î °É·¯Áü
+					// Å½»ö¿¡ ÀÌ¿ëÇÒ ¹®ÀÚ¿¡ ´ëÇÑ ÀÎµ¦½º°¡ ³ÑÀ» ¼öµµ ÀÖÀ½.
+					if (searching_g + i >= iEnd6 || searching_h + i >= jEnd6)
+						break;
+
+					finding_h = _str2.find_first_of(_str1[searching_g + i], curGHS.h + 1);
+					finding_g = _str1.find_first_of(_str2[searching_h + i], curGHS.g + 1);
+
+					if (finding_h != _str2.npos && finding_h != -1 && finding_h < jEnd6)
+						wthVec[curGHS.id].push_back({ searching_g + i, finding_h });
+					if (finding_g != _str1.npos && finding_g != -1 && finding_g < iEnd6)
+						wthVec[curGHS.id].push_back({ finding_g, searching_h + i});
+				}
+				curGHS.isKrunned = true;
+				curGHS.gs = curGHS.hs = _k + 1;
+				stk.push(curGHS);
+				continue;
+			}
+
+			//´õ ÀÌ»ó °¡Á®´Ù ¾µ°Ô ¾øÀ½ÀÌ º¸Àå
+			finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+			finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+			// ¾çÂÊ ±âÁØÀÇ ¹®ÀÚ°¡ ´Ù¸¥ ¹®ÀÚ¿­¿¡¼­ ³ªÅ¸³­ °æ¿ì
+			if ((finding_h != _str2.npos && finding_h != -1 && finding_h < jEnd6) &&
+				(finding_g != _str1.npos && finding_g != -1 && finding_g < iEnd6))
+			{
+				int minLen_by_g = min((iEnd6 - searching_g), (jEnd6 - finding_h));
+				int minLen_by_h = min((iEnd6 - finding_g), (jEnd6 - searching_h));
+
+				// X¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
+				if (minLen_by_g >= minLen_by_h)
+				{
+					krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs, curGHS.isKrunned };
+					stk.push(reGHS);
+
+					krGHS next_GHS{ ghsId++, searching_g, finding_h, 1, 1 };
+					stk.push(next_GHS);
+				}
+				// Y¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
+				else
+				{
+					krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs, curGHS.hs + 1, curGHS.isKrunned };
+					stk.push(reGHS);
+
+					krGHS next_GHS{ghsId++, finding_g, searching_h, 1, 1 };
+					stk.push(next_GHS);
+				}
+			}
+			// X ±âÁØÀÇ ¹®ÀÚ°¡ str2¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
+			else if (finding_h != _str2.npos && finding_h != -1 && finding_h < jEnd6)
+			{
+				krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1, curGHS.isKrunned };
+				stk.push(reGHS);
+
+				krGHS next_GHS{ghsId++, searching_g, finding_h, 1, 1 };
+				stk.push(next_GHS);
+			}
+			// Y ±âÁØÀÇ ¹®ÀÚ°¡ str1¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
+			else if (finding_g != _str1.npos && finding_g != -1 && finding_g < iEnd6)
+			{
+				krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1, curGHS.isKrunned };
+				stk.push(reGHS);
+
+				krGHS next_GHS{ghsId++, finding_g, searching_h, 1, 1 };
+				stk.push(next_GHS);
+			}
+			// µÑ´Ù ¾È ³ªÅ¸³­ °æ¿ì
+			else
+			{
+				krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1, curGHS.isKrunned };
+				stk.push(reGHS);
+			}
+		}
+		else if (curGHS.g >= 0)
+		{
+			mcs = _str1[curGHS.g] + mcs;
+
+			iEnd6 = _str1.find_last_of(_str1[curGHS.g], iEnd6 - 1);
+			jEnd6 = _str2.find_last_of(_str1[curGHS.g], jEnd6 - 1);
+			if (iEnd6 == 0 || jEnd6 == 0 ||
+				iEnd6 == -1 || jEnd6 == -1 ||
+				iEnd6 == _str1.npos || jEnd6 == _str2.npos)
+				break;
+		}
+	}
+
+
+	/*cout << "MCS Shin Lenght : " << mcs.length() << '\n';
+	cout << "MCS Shin : ";
+	cout << (mcs + '\0') << '\n';*/
+
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
@@ -1726,7 +1360,7 @@ bool isMCS(string _str1, string _str2, string _mcs)
 		h = _str2.find_first_of(_mcs[k], h + 1);
 		if (g == -1 || g == _str1.npos || h == -1 || h == _str2.npos)
 		{
-			cout << "isMCS ERROR: There is no character";
+			//cout << "isMCS ERROR: There is no character\n";
 			return false;
 		}
 
@@ -1747,7 +1381,7 @@ bool isMCS(string _str1, string _str2, string _mcs)
 			{
 				if (finding_last_in_Y > curGH.h)
 				{
-					cout << "ERROR 3" << endl;
+					//cout << "isMCS ERROR: Not disjoint" << endl;
 					return false;
 				}
 			}
@@ -1759,7 +1393,7 @@ bool isMCS(string _str1, string _str2, string _mcs)
 			{
 				if (finding_last_in_X > curGH.g)
 				{
-					cout << "ERROR 3" << endl;
+					//cout << "isMCS ERROR: Not disjoint" << endl;
 					return false;
 				}
 			}
@@ -1771,10 +1405,11 @@ bool isMCS(string _str1, string _str2, string _mcs)
 }
 
 
+
 // wstring
 wreturnPacket LCS(wstring _str1, wstring _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -1785,14 +1420,14 @@ wreturnPacket LCS(wstring _str1, wstring _str2)
 	int len2 = (int)_str2.length();
 
 
-	// matrix ìƒì„±í•˜ëŠ” ë°˜ë³µë¬¸ ìµœì†Œí™”ë¥¼ ìœ„í•œ ì‘ì—…; ë” ì§§ì€ ê²ƒì„ str1ìœ¼ë¡œ ê³ ì •
+	// matrix »ı¼ºÇÏ´Â ¹İº¹¹® ÃÖ¼ÒÈ­¸¦ À§ÇÑ ÀÛ¾÷; ´õ ÂªÀº °ÍÀ» str1À¸·Î °íÁ¤
 	if (len1 > len2)
 	{
 		wstring tmp = _str1; _str1 = _str2; _str2 = tmp;
 		int tmp2 = len1; len1 = len2; len2 = tmp2;
 	}
 
-	// LCS ì•Œê³ ë¦¬ì¦˜ì„ ìœ„í•´ í•„ìš”í•œ í–‰ë ¬
+	// LCS ¾Ë°í¸®ÁòÀ» À§ÇØ ÇÊ¿äÇÑ Çà·Ä
 	int** matrix = new int* [len1 + 1];
 	for (int i = 0; i < len1 + 1; i++)
 	{
@@ -1846,11 +1481,11 @@ wreturnPacket LCS(wstring _str1, wstring _str2)
 		}
 	}
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
-	// ì†Œë©¸
+	// ¼Ò¸ê
 	for (int i = 0; i < len1 + 1; i++)
 	{
 		delete[] matrix[i];
@@ -1862,7 +1497,7 @@ wreturnPacket LCS(wstring _str1, wstring _str2)
 }
 wreturnPacket MCS_0(wstring _str1, wstring _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -1876,7 +1511,7 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 	ghs init{ -1, -1, 0 };
 	stk.push(init);
 
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	int iEnd = len1; int jEnd = len2;
 
 	while (!stk.empty())
@@ -1884,12 +1519,12 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 		ghs curGHS = stk.top();
 		stk.pop();
 
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		if (curGHS.s % 2 == 0)
 		{
 			int searching_g = curGHS.g + curGHS.s / 2 + 1;
 
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_g < iEnd)
 			{
 				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
@@ -1897,15 +1532,15 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 
 				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
 				{
 					ghs next_GHS{ searching_g, finding_h, 0 };
 					stk.push(next_GHS);
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -1918,12 +1553,12 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 					break;
 			}
 		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		else
 		{
 			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
 
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_h < jEnd)
 			{
 				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
@@ -1931,15 +1566,15 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 
 				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
 				{
 					ghs next_GHS{ finding_g, searching_h, 0 };
 					stk.push(next_GHS);
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -1958,7 +1593,7 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 	cout << "MCS Sakai : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
@@ -1967,7 +1602,7 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 }
 wreturnPacket MCS_1(wstring _str1, wstring _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -1981,7 +1616,7 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 	leeGhs init{ -1, -1, 1, 1 };
 	stk.push(init);
 
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	int iEnd = len1; int jEnd = len2;
 
 	while (!stk.empty())
@@ -1989,24 +1624,24 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 		leeGhs curGHS = stk.top();
 		stk.pop();
 
-		// Xì™€ Yì—ì„œ íƒìƒ‰í•  ë¬¸ìì˜ ìœ„ì¹˜ë¥¼ êµ¬í•œë‹¤.
+		// X¿Í Y¿¡¼­ Å½»öÇÒ ¹®ÀÚÀÇ À§Ä¡¸¦ ±¸ÇÑ´Ù.
 		int searching_g = curGHS.g + curGHS.gs;
 		int searching_h = curGHS.h + curGHS.hs;
 
-		// ë‘ ê³³ ëª¨ë‘ íƒìƒ‰ ë²”ìœ„ë¥¼ ë„˜ì§€ ì•ŠëŠ” ê²½ìš°
+		// µÎ °÷ ¸ğµÎ Å½»ö ¹üÀ§¸¦ ³ÑÁö ¾Ê´Â °æ¿ì
 		if (searching_g < iEnd && searching_h < jEnd)
 		{
 			int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 			int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-			// ì–‘ìª½ ê¸°ì¤€ì˜ ë¬¸ìê°€ ë‹¤ë¥¸ ë¬¸ìì—´ì—ì„œ ë‚˜íƒ€ë‚œ ê²½ìš°
+			// ¾çÂÊ ±âÁØÀÇ ¹®ÀÚ°¡ ´Ù¸¥ ¹®ÀÚ¿­¿¡¼­ ³ªÅ¸³­ °æ¿ì
 			if ((finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1) &&
 				(finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1))
 			{
 				int minLen_by_g = min((iEnd - searching_g), (jEnd - finding_h));
 				int minLen_by_h = min((iEnd - finding_g), (jEnd - searching_h));
 
-				// Xì—ì„œ ì°¾ì€ ë¬¸ìë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•  ë•Œ ë²”ìœ„ê°€ ë” ë„“ì–´ì§€ëŠ” ê²½ìš°
+				// X¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
 				if (minLen_by_g >= minLen_by_h)
 				{
 					leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs };
@@ -2015,7 +1650,7 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 					leeGhs next_GHS{ searching_g, finding_h, 1, 1 };
 					stk.push(next_GHS);
 				}
-				// Yì—ì„œ ì°¾ì€ ë¬¸ìë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•  ë•Œ ë²”ìœ„ê°€ ë” ë„“ì–´ì§€ëŠ” ê²½ìš°
+				// Y¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
 				else
 				{
 					leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs, curGHS.hs + 1 };
@@ -2025,7 +1660,7 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 					stk.push(next_GHS);
 				}
 			}
-			// X ê¸°ì¤€ì˜ ë¬¸ìê°€ str2ì—ì„œ ë‚˜íƒ€ë‚œ ê²½ìš°ë§Œ
+			// X ±âÁØÀÇ ¹®ÀÚ°¡ str2¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
 			else if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
 			{
 				leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1 };
@@ -2034,7 +1669,7 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 				leeGhs next_GHS{ searching_g, finding_h, 1, 1 };
 				stk.push(next_GHS);
 			}
-			// Y ê¸°ì¤€ì˜ ë¬¸ìê°€ str1ì—ì„œ ë‚˜íƒ€ë‚œ ê²½ìš°ë§Œ
+			// Y ±âÁØÀÇ ¹®ÀÚ°¡ str1¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
 			else if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
 			{
 				leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1 };
@@ -2043,7 +1678,7 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 				leeGhs next_GHS{ finding_g, searching_h, 1, 1 };
 				stk.push(next_GHS);
 			}
-			// ë‘˜ë‹¤ ì•ˆ ë‚˜íƒ€ë‚œ ê²½ìš°
+			// µÑ´Ù ¾È ³ªÅ¸³­ °æ¿ì
 			else
 			{
 				leeGhs reGHS{ curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1 };
@@ -2069,16 +1704,17 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 	cout << "MCS Lee : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
 }
-wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
+
+wreturnPacket MCS_1_A(wstring _str1, wstring _str2)
 {
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	clock_t start_t, end_t;
 	double result_t;
 	start_t = clock();
@@ -2088,60 +1724,243 @@ wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 
 	wstring mcs = L"";
 
-	stack<PQGhs> stk;
-	PQGhs init{ 0, -1, -1, 0 };
+	stack<leeGhsA> stk;
+	leeGhsA init{ -1, -1, 0, true };
 	stk.push(init);
 
-	vector<vector<PQGhs>> wthPqs;
-	vector<PQGhs> init_wthpq;
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
+	int iEnd = len1; int jEnd = len2;
+
+	while (!stk.empty())
+	{
+		leeGhsA curGHS = stk.top();
+		stk.pop();
+
+		if (curGHS.toggle)
+		{
+			// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			if (curGHS.s % 2 == 0)
+			{
+				int searching_g = curGHS.g + curGHS.s / 2 + 1;
+
+				// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_g < iEnd)
+				{
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
+
+					int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
+					{
+						// toggle change
+						leeGhsA next_GHS{ searching_g, finding_h, 0, !curGHS.toggle };
+						stk.push(next_GHS);
+					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
+				}
+			}
+			// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			else
+			{
+				int searching_h = curGHS.h + (curGHS.s + 1) / 2;
+
+				// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_h < jEnd)
+				{
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
+
+					int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
+					{
+						leeGhsA next_GHS{ finding_g, searching_h, 0, !curGHS.toggle };
+						stk.push(next_GHS);
+					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
+				}
+			}
+		}
+		else
+		{
+			// s°¡ Â¦¼öÀÌ¸é str1(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			if (curGHS.s % 2 == 0)
+			{
+				int searching_h = curGHS.h + (curGHS.s + 1) / 2;
+
+				// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_h < jEnd)
+				{
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
+
+					int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd - 1)
+					{
+						leeGhsA next_GHS{ finding_g, searching_h, 0, !curGHS.toggle };
+						stk.push(next_GHS);
+					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
+				}
+			}
+			// s°¡ È¦¼öÀÌ¸é str2(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+			else
+			{
+				int searching_g = curGHS.g + curGHS.s / 2 + 1;
+
+				// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+				if (searching_g < iEnd)
+				{
+					leeGhsA next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1, curGHS.toggle };
+					stk.push(next_GHS);
+
+					int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+
+					// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+					// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+					if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd - 1)
+					{
+						leeGhsA next_GHS{ searching_g, finding_h, 0, !curGHS.toggle };
+						stk.push(next_GHS);
+					}
+				}
+				// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+				else if (curGHS.g >= 0)
+				{
+					mcs = _str1[curGHS.g] + mcs;
+
+					iEnd = _str1.find_last_of(_str1[curGHS.g], iEnd - 1);
+					jEnd = _str2.find_last_of(_str1[curGHS.g], jEnd - 1);
+					if (iEnd == 0 || jEnd == 0 ||
+						iEnd == -1 || jEnd == -1 ||
+						iEnd == _str1.npos || jEnd == _str2.npos)
+						break;
+				}
+			}
+		}
+
+
+	}
+
+	/*cout << "MCS Sakai Lenght : " << mcs.length() << '\n';
+	cout << "MCS Sakai : ";
+	cout << (mcs + '\0') << '\n';*/
+
+	// ½Ã°£ ÃøÁ¤
+	end_t = clock();
+	result_t = (double)(end_t - start_t);
+
+	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
+	return result;
+}
+
+wreturnPacket MCS_T1(wstring _str1, wstring _str2, int _k)
+{
+	// ½Ã°£ ÃøÁ¤
+	clock_t start_t, end_t;
+	double result_t;
+	start_t = clock();
+
+	int len1 = (int)_str1.length();
+	int len2 = (int)_str2.length();
+
+	wstring mcs = L"";
+
+	stack<kcGHS> stk;
+	kcGHS init{ 0, -1, -1, 0 };
+	stk.push(init);
+
+	vector<vector<kcGHS>> wthPqs;
+	vector<kcGHS> init_wthpq;
 	wthPqs.push_back(init_wthpq);
 
-	// ë²”ìœ„ì˜ ì˜¤ë¥¸ìª½ ë
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
 	iEnd5 = len1, jEnd5 = len2;
 
-	// check ìš©
+	// check ¿ë
 	int GHS_id = 1;
 
 	while (!stk.empty())
 	{
-		PQGhs curGHS = stk.top();
+		kcGHS curGHS = stk.top();
 
 		bool isWthPoped = false;
 
-		// (1) _kë§Œí¼ íƒìƒ‰ì„ í–ˆìœ¼ë‚˜ _k ë³´ë‹¤ ì‘ì€ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°
-		// (2) Xì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (3) Yì—ì„œ _kë§Œí¼ íƒìƒ‰ì„ ì§„í–‰í•˜ê¸° ì „ì— íƒìƒ‰ë²”ìœ„ê°€ ì¢…ë£Œëœ ê²½ìš°
-		// (2)ì™€ (3)ì˜ ê²½ìš° íƒìƒ‰ì´ ì¢…ë£Œë  ì˜ˆì •ì´ë‹¤. ê·¸ëŸ¬ë‚˜ íƒìƒ‰ì´ ì¢…ë£Œë˜ì—ˆì„ ë•Œ, iEndì™€ jEndë¥¼ ê°±ì‹ í•˜ë”ë¼ë„
-		// new_iEnd(new_jEnd)ì™€ old_iEnd(old_jEnd) ì‚¬ì´ì— ê³µí†µë¬¸ìê°€ ë³´ë¥˜ëœ ìƒíƒœë¡œ ë‚¨ì„ ìˆ˜ ìˆë‹¤.
-		// ì¦‰, ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ë“¤ì–´ê°€ì§€ ì•Šì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ (1)ì˜ ê²½ìš°ì™€ ê°™ì´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
+		// (1) _k¸¸Å­ Å½»öÀ» ÇßÀ¸³ª _k º¸´Ù ÀÛÀº ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£Áö ¸øÇÑ °æ¿ì
+		// (2) X¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (3) Y¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (2)¿Í (3)ÀÇ °æ¿ì Å½»öÀÌ Á¾·áµÉ ¿¹Á¤ÀÌ´Ù. ±×·¯³ª Å½»öÀÌ Á¾·áµÇ¾úÀ» ¶§, iEnd¿Í jEnd¸¦ °»½ÅÇÏ´õ¶óµµ
+		// new_iEnd(new_jEnd)¿Í old_iEnd(old_jEnd) »çÀÌ¿¡ °øÅë¹®ÀÚ°¡ º¸·ùµÈ »óÅÂ·Î ³²À» ¼ö ÀÖ´Ù.
+		// Áï, º¸·ù °øÅë¹®ÀÚ°¡ µé¾î°¡Áö ¾ÊÀ» ¼ö ÀÖÀ¸¹Ç·Î (1)ÀÇ °æ¿ì¿Í °°ÀÌ Ã³¸®ÇØ¾ß ÇÑ´Ù.
 		if (curGHS.s >= _k * 2)
 		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
+			// º¸·ù °øÅë¹®ÀÚ°¡ ¾ø´Ù¸é »ó°ü ¾ø´Ù.
 			if (wthPqs.size() > curGHS.id)
 			{
-				// ë³´ë¥˜ í•œ ê²ƒì´ ì—†ìœ¼ë©´ ì¼ë°˜ íƒìƒ‰ìœ¼ë¡œ ì§„í–‰
+				// º¸·ù ÇÑ °ÍÀÌ ¾øÀ¸¸é ÀÏ¹İ Å½»öÀ¸·Î ÁøÇà
 				if (!wthPqs[curGHS.id].empty())
 				{
-					// ìµœì´ˆ ì¶”ì¶œ ì •ë ¬
-					// ì¶”ì¶œ ì´í›„ì— ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¬ë¼ì§€ì§€ë§Œ ê·¸ ë‹¬ë¼ì§„ ì—”ë“œ ë°”ìš´ë“œ ì´í›„ì— ê¸°ì¡´ì— ìˆëŠ” ë³´ë¥˜ ì¹œêµ¬ë“¤ê³¼ ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¤ë¥¸ ë³´ë¥˜ ì¹œêµ¬ë“¤ì´ ë“¤ì–´ì˜¤ëŠ” ê²ƒì€ ì—†ë‹¤. by Lemma 2
-					// ê°€ì¥ íƒìƒ‰ ë²”ìœ„ê°€ ê¸´ ê±° ë¨¼ì € êº¼ë‚´ê¸°
-					// ì„ í˜• íƒìƒ‰ì„ í•˜ë”ë¼ë„ ì—”ë“œ ë°”ìš´ë“œë¥¼ ë„˜ì–´ë²„ë¦¬ëŠ” ê²ƒì€ ìµœì†Œ í–¥í›„ íƒìƒ‰ë²”ìœ„ê°€ ë§ˆì´ë„ˆìŠ¤ì´ë¯€ë¡œ ê°€ì¥ í›„ìˆœìœ„ì´ë‹¤.
-					PQGhs wthGHS = wthPqs[curGHS.id][0];
+					// ÃÖÃÊ ÃßÃâ Á¤·Ä
+					// ÃßÃâ ÀÌÈÄ¿¡ ¿£µå ¹Ù¿îµå°¡ ´Ş¶óÁöÁö¸¸ ±× ´Ş¶óÁø ¿£µå ¹Ù¿îµå ÀÌÈÄ¿¡ ±âÁ¸¿¡ ÀÖ´Â º¸·ù Ä£±¸µé°ú ¿£µå ¹Ù¿îµå°¡ ´Ù¸¥ º¸·ù Ä£±¸µéÀÌ µé¾î¿À´Â °ÍÀº ¾ø´Ù. by Lemma 2
+					// °¡Àå Å½»ö ¹üÀ§°¡ ±ä °Å ¸ÕÀú ²¨³»±â
+					// ¼±Çü Å½»öÀ» ÇÏ´õ¶óµµ ¿£µå ¹Ù¿îµå¸¦ ³Ñ¾î¹ö¸®´Â °ÍÀº ÃÖ¼Ò ÇâÈÄ Å½»ö¹üÀ§°¡ ¸¶ÀÌ³Ê½ºÀÌ¹Ç·Î °¡Àå ÈÄ¼øÀ§ÀÌ´Ù.
+					kcGHS wthGHS = wthPqs[curGHS.id][0];
 					for (int i = 1; i < wthPqs[curGHS.id].size(); i++)
 					{
-						PQGhs cur = wthPqs[curGHS.id][i];
-						if (compGHS(cur, wthGHS))	// curê°€ ë” ê¸¸ê²Œ ë§Œë“¤ë©´ true ë°˜í™˜
+						kcGHS cur = wthPqs[curGHS.id][i];
+						if (compGHS(cur, wthGHS))	// cur°¡ ´õ ±æ°Ô ¸¸µé¸é true ¹İÈ¯
 						{
 							wthGHS = cur;
 						}
 					}
 
-					// idì— ë§ëŠ” ê±¸ êº¼ë‚´ë¯€ë¡œ End ë°”ìš´ë“œë§Œ ì‹ ê²½ì“°ë©´ ëœë‹¤.
+					// id¿¡ ¸Â´Â °É ²¨³»¹Ç·Î End ¹Ù¿îµå¸¸ ½Å°æ¾²¸é µÈ´Ù.
 					if (wthGHS.g < iEnd5 && wthGHS.h < jEnd5)
 					{
 						isWthPoped = true;
 
-						// stkì— ìŒ“ì„ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
+						// stk¿¡ ½×À» ±¸Á¶Ã¼ ÃÊ±âÈ­
 						wthGHS.id = GHS_id++;
 						wthGHS.s = 0;
 
@@ -2157,32 +1976,32 @@ wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 		else if ((curGHS.s % 2 == 0 && curGHS.g + curGHS.s / 2 + 1 >= iEnd5) ||
 			(curGHS.s % 2 == 1 && curGHS.h + (curGHS.s + 1) / 2 >= jEnd5))
 		{
-			// ë³´ë¥˜ ê³µí†µë¬¸ìê°€ ì—†ë‹¤ë©´ ìƒê´€ ì—†ë‹¤.
+			// º¸·ù °øÅë¹®ÀÚ°¡ ¾ø´Ù¸é »ó°ü ¾ø´Ù.
 			if (wthPqs.size() > curGHS.id)
 			{
-				// ë³´ë¥˜ í•œ ê²ƒì´ ì—†ìœ¼ë©´ ì¼ë°˜ íƒìƒ‰ìœ¼ë¡œ ì§„í–‰
+				// º¸·ù ÇÑ °ÍÀÌ ¾øÀ¸¸é ÀÏ¹İ Å½»öÀ¸·Î ÁøÇà
 				if (!wthPqs[curGHS.id].empty())
 				{
-					// ìµœì´ˆ ì¶”ì¶œ ì •ë ¬
-					// ì¶”ì¶œ ì´í›„ì— ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¬ë¼ì§€ì§€ë§Œ ê·¸ ë‹¬ë¼ì§„ ì—”ë“œ ë°”ìš´ë“œ ì´í›„ì— ê¸°ì¡´ì— ìˆëŠ” ë³´ë¥˜ ì¹œêµ¬ë“¤ê³¼ ì—”ë“œ ë°”ìš´ë“œê°€ ë‹¤ë¥¸ ë³´ë¥˜ ì¹œêµ¬ë“¤ì´ ë“¤ì–´ì˜¤ëŠ” ê²ƒì€ ì—†ë‹¤. by Lemma 2
-					// ê°€ì¥ íƒìƒ‰ ë²”ìœ„ê°€ ê¸´ ê±° ë¨¼ì € êº¼ë‚´ê¸°
-					// ì„ í˜• íƒìƒ‰ì„ í•˜ë”ë¼ë„ ì—”ë“œ ë°”ìš´ë“œë¥¼ ë„˜ì–´ë²„ë¦¬ëŠ” ê²ƒì€ ìµœì†Œ í–¥í›„ íƒìƒ‰ë²”ìœ„ê°€ ë§ˆì´ë„ˆìŠ¤ì´ë¯€ë¡œ ê°€ì¥ í›„ìˆœìœ„ì´ë‹¤.
-					PQGhs wthGHS = wthPqs[curGHS.id][0];
+					// ÃÖÃÊ ÃßÃâ Á¤·Ä
+					// ÃßÃâ ÀÌÈÄ¿¡ ¿£µå ¹Ù¿îµå°¡ ´Ş¶óÁöÁö¸¸ ±× ´Ş¶óÁø ¿£µå ¹Ù¿îµå ÀÌÈÄ¿¡ ±âÁ¸¿¡ ÀÖ´Â º¸·ù Ä£±¸µé°ú ¿£µå ¹Ù¿îµå°¡ ´Ù¸¥ º¸·ù Ä£±¸µéÀÌ µé¾î¿À´Â °ÍÀº ¾ø´Ù. by Lemma 2
+					// °¡Àå Å½»ö ¹üÀ§°¡ ±ä °Å ¸ÕÀú ²¨³»±â
+					// ¼±Çü Å½»öÀ» ÇÏ´õ¶óµµ ¿£µå ¹Ù¿îµå¸¦ ³Ñ¾î¹ö¸®´Â °ÍÀº ÃÖ¼Ò ÇâÈÄ Å½»ö¹üÀ§°¡ ¸¶ÀÌ³Ê½ºÀÌ¹Ç·Î °¡Àå ÈÄ¼øÀ§ÀÌ´Ù.
+					kcGHS wthGHS = wthPqs[curGHS.id][0];
 					for (int i = 1; i < wthPqs[curGHS.id].size(); i++)
 					{
-						PQGhs cur = wthPqs[curGHS.id][i];
-						if (compGHS(cur, wthGHS))	// curê°€ ë” ê¸¸ê²Œ ë§Œë“¤ë©´ true ë°˜í™˜
+						kcGHS cur = wthPqs[curGHS.id][i];
+						if (compGHS(cur, wthGHS))	// cur°¡ ´õ ±æ°Ô ¸¸µé¸é true ¹İÈ¯
 						{
 							wthGHS = cur;
 						}
 					}
 
-					// idì— ë§ëŠ” ê±¸ êº¼ë‚´ë¯€ë¡œ End ë°”ìš´ë“œë§Œ ì‹ ê²½ì“°ë©´ ëœë‹¤.
+					// id¿¡ ¸Â´Â °É ²¨³»¹Ç·Î End ¹Ù¿îµå¸¸ ½Å°æ¾²¸é µÈ´Ù.
 					if (wthGHS.g < iEnd5 && wthGHS.h < jEnd5)
 					{
 						isWthPoped = true;
 
-						// stkì— ìŒ“ì„ êµ¬ì¡°ì²´ ì´ˆê¸°í™”
+						// stk¿¡ ½×À» ±¸Á¶Ã¼ ÃÊ±âÈ­
 						wthGHS.id = GHS_id++;
 						wthGHS.s = 0;
 
@@ -2205,43 +2024,43 @@ wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 
 		stk.pop();
 
-		// sê°€ ì§ìˆ˜ì´ë©´ str1(X)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		if (curGHS.s % 2 == 0)
 		{
 			int searching_g = curGHS.g + curGHS.s / 2 + 1;
 
-			// ì•„ì§ str1(X)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_g < iEnd5)
 			{
-				PQGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
+				kcGHS next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
 				stk.push(next_GHS);
 
 				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd5 - 1)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
 					if (searching_g <= curGHS.g + _k && finding_h <= curGHS.h + _k)
 					{
-						PQGhs next_GHS{ GHS_id++, searching_g, finding_h, 0 };
+						kcGHS next_GHS{ GHS_id++, searching_g, finding_h, 0 };
 						stk.push(next_GHS);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
 					else
 					{
 						while (wthPqs.size() <= curGHS.id)
 						{
-							vector<PQGhs> newQue;
+							vector<kcGHS> newQue;
 							wthPqs.push_back(newQue);
 						}
-						PQGhs wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s };
+						kcGHS wth_GHS{ curGHS.id, searching_g, finding_h, curGHS.s };
 						wthPqs[curGHS.id].push_back(wth_GHS);
 					}
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -2250,44 +2069,44 @@ wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 				jEnd5 = _str2.find_last_of(_str1[curGHS.g], jEnd5 - 1);
 			}
 		}
-		// sê°€ í™€ìˆ˜ì´ë©´ str2(Y)ì—ì„œ ì°¾ëŠ” ì¤‘ì´ë‹¤.
+		// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
 		else
 		{
 			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
 
-			// ì•„ì§ str2(Y)ì—ì„œì˜ íƒìƒ‰ ë²”ìœ„ê°€ ì§€ì •ëœ ë²”ìœ„ ë‚´ì— ì¡´ì¬í•œë‹¤.
+			// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
 			if (searching_h < jEnd5)
 			{
-				PQGhs next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
+				kcGHS next_GHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.s + 1 };
 				stk.push(next_GHS);
 
 				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
 
-				// ì§€ì •ëœ str2(Y)ì˜ ë²”ìœ„ ë‚´ì—ì„œ ê³µí†µ ë¬¸ìë¥¼ ì°¾ìŒ
-				// ìƒˆë¡œìš´ ê³µí†µë¬¸ì offsetì„ ì €ì¥
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
 				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd5 - 1)
 				{
-					// k ë²”ìœ„ ì•ˆì—ì„œ ì°¾ì•˜ë‹¤.
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
 					if (searching_h <= curGHS.h + _k && finding_g <= curGHS.g + _k)
 					{
-						PQGhs next_GHS{ GHS_id++, finding_g, searching_h, 0 };
+						kcGHS next_GHS{ GHS_id++, finding_g, searching_h, 0 };
 						stk.push(next_GHS);
 					}
-					// k ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì„œ ë³´ë¥˜í•œë‹¤.
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
 					else
 					{
 						while (wthPqs.size() <= curGHS.id)
 						{
-							vector<PQGhs> newQue;
+							vector<kcGHS> newQue;
 							wthPqs.push_back(newQue);
 						}
-						PQGhs wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s };
+						kcGHS wth_GHS{ curGHS.id, finding_g, searching_h, curGHS.s };
 						wthPqs[curGHS.id].push_back(wth_GHS);
 					}
 
 				}
 			}
-			// str1(X)ì—ì„œ ë”ì´ìƒ íƒìƒ‰í•  ê²ƒì´ ì—†ê³  í˜„ì¬ì˜ ê³µí†µë¬¸ìê°€ ì‹œì‘ë¬¸ì(ì„¼í‹°ë„)ì´ ì•„ë‹Œ ê²½ìš°
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
 			else if (curGHS.g >= 0)
 			{
 				mcs = _str1[curGHS.g] + mcs;
@@ -2302,13 +2121,374 @@ wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 	cout << "MCS Shin : ";
 	cout << (mcs + '\0') << '\n';*/
 
-	// ì‹œê°„ ì¸¡ì •
+	// ½Ã°£ ÃøÁ¤
 	end_t = clock();
 	result_t = (double)(end_t - start_t);
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
 }
+
+wreturnPacket MCS_T1_1(wstring _str1, wstring _str2, int _k)
+{
+	// ½Ã°£ ÃøÁ¤
+	clock_t start_t, end_t;
+	double result_t;
+	start_t = clock();
+
+	int len1 = (int)_str1.length();
+	int len2 = (int)_str2.length();
+
+	wstring mcs = L"";
+
+	stack<ghs> stk;
+	ghs init{ -1, -1, 0 };
+	stk.push(init);
+
+	stack<vector<ghs>> wthStk;
+	vector<ghs> init_wthVec;
+	wthStk.push(init_wthVec);
+
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
+	iEnd5 = len1, jEnd5 = len2;
+
+	// check ¿ë
+	int GHS_id = 1;
+
+	while (!stk.empty())
+	{
+		ghs curGHS = stk.top();
+		vector<ghs> curWthVec = wthStk.top();
+
+		bool isWthPoped = false;
+
+		// (1) _k¸¸Å­ Å½»öÀ» ÇßÀ¸³ª _k º¸´Ù ÀÛÀº ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£Áö ¸øÇÑ °æ¿ì
+		// (2) X¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (3) Y¿¡¼­ _k¸¸Å­ Å½»öÀ» ÁøÇàÇÏ±â Àü¿¡ Å½»ö¹üÀ§°¡ Á¾·áµÈ °æ¿ì
+		// (2)¿Í (3)ÀÇ °æ¿ì Å½»öÀÌ Á¾·áµÉ ¿¹Á¤ÀÌ´Ù. ±×·¯³ª Å½»öÀÌ Á¾·áµÇ¾úÀ» ¶§, iEnd¿Í jEnd¸¦ °»½ÅÇÏ´õ¶óµµ
+		// new_iEnd(new_jEnd)¿Í old_iEnd(old_jEnd) »çÀÌ¿¡ °øÅë¹®ÀÚ°¡ º¸·ùµÈ »óÅÂ·Î ³²À» ¼ö ÀÖ´Ù.
+		// Áï, º¸·ù °øÅë¹®ÀÚ°¡ µé¾î°¡Áö ¾ÊÀ» ¼ö ÀÖÀ¸¹Ç·Î (1)ÀÇ °æ¿ì¿Í °°ÀÌ Ã³¸®ÇØ¾ß ÇÑ´Ù.
+		if (curGHS.s >= _k * 2 || (curGHS.s % 2 == 0 && curGHS.g + curGHS.s / 2 + 1 >= iEnd5) ||
+			(curGHS.s % 2 == 1 && curGHS.h + (curGHS.s + 1) / 2 >= jEnd5))
+		{
+			// º¸·ùÇÑ °ÍÀÌ ¾øÀ¸¸é ÀÏ¹İ Å½»öÀ¸·Î ÁøÇà
+			if (!curWthVec.empty())
+			{
+				ghs maxWth = curWthVec[0];
+				int maxIdx = 0;
+				for (int i = 1; i < curWthVec.size(); i++)
+				{
+					ghs cur = curWthVec[i];
+					if (compGHS_1(cur, maxWth))
+					{
+						maxWth = cur;
+						maxIdx = i;
+					}
+				}
+
+				if (maxWth.g < iEnd5 && maxWth.h < jEnd5)
+				{
+					isWthPoped = true;
+
+					maxWth.s = 0;
+					stk.push(maxWth);
+
+					curWthVec.erase(curWthVec.begin() + maxIdx);
+					wthStk.pop();
+					wthStk.push(curWthVec);
+					vector<ghs> new_wthVec;
+					wthStk.push(new_wthVec);
+				}
+				else
+				{
+					curWthVec.erase(curWthVec.begin() + maxIdx);
+					wthStk.pop();
+					wthStk.push(curWthVec);
+				}
+
+			}
+		}
+
+		if (isWthPoped)
+		{
+			curGHS = stk.top();
+			curWthVec = wthStk.top();
+		}
+
+		stk.pop();
+		wthStk.pop();
+
+		// s°¡ Â¦¼öÀÌ¸é str1(X)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+		if (curGHS.s % 2 == 0)
+		{
+			int searching_g = curGHS.g + curGHS.s / 2 + 1;
+
+			// ¾ÆÁ÷ str1(X)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+			if (searching_g < iEnd5)
+			{
+				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
+				stk.push(next_GHS);
+
+				int finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+				if (finding_h != _str2.npos && finding_h != -1 && finding_h <= jEnd5 - 1)
+				{
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
+					if (searching_g <= curGHS.g + _k && finding_h <= curGHS.h + _k)
+					{
+						ghs next_GHS{ searching_g, finding_h, 0 };
+						stk.push(next_GHS);
+						wthStk.push(curWthVec);
+						vector<ghs> next_wthVec;
+						wthStk.push(next_wthVec);
+					}
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
+					else
+					{
+						ghs wth_GHS{ searching_g, finding_h, curGHS.s };
+						curWthVec.push_back(wth_GHS);
+						wthStk.push(curWthVec);
+					}
+				}
+				else
+					wthStk.push(curWthVec);
+			}
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+			else if (curGHS.g >= 0)
+			{
+				mcs = _str1[curGHS.g] + mcs;
+
+				iEnd5 = _str1.find_last_of(_str1[curGHS.g], iEnd5 - 1);
+				jEnd5 = _str2.find_last_of(_str1[curGHS.g], jEnd5 - 1);
+			}
+		}
+		// s°¡ È¦¼öÀÌ¸é str2(Y)¿¡¼­ Ã£´Â ÁßÀÌ´Ù.
+		else
+		{
+			int searching_h = curGHS.h + (curGHS.s + 1) / 2;
+
+			// ¾ÆÁ÷ str2(Y)¿¡¼­ÀÇ Å½»ö ¹üÀ§°¡ ÁöÁ¤µÈ ¹üÀ§ ³»¿¡ Á¸ÀçÇÑ´Ù.
+			if (searching_h < jEnd5)
+			{
+				ghs next_GHS{ curGHS.g, curGHS.h, curGHS.s + 1 };
+				stk.push(next_GHS);
+
+				int finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+				// ÁöÁ¤µÈ str2(Y)ÀÇ ¹üÀ§ ³»¿¡¼­ °øÅë ¹®ÀÚ¸¦ Ã£À½
+				// »õ·Î¿î °øÅë¹®ÀÚ offsetÀ» ÀúÀå
+				if (finding_g != _str1.npos && finding_g != -1 && finding_g <= iEnd5 - 1)
+				{
+					// k ¹üÀ§ ¾È¿¡¼­ Ã£¾Ò´Ù.
+					if (searching_h <= curGHS.h + _k && finding_g <= curGHS.g + _k)
+					{
+						ghs next_GHS{ finding_g, searching_h, 0 };
+						stk.push(next_GHS);
+						wthStk.push(curWthVec);
+						vector<ghs> next_wthVec;
+						wthStk.push(next_wthVec);
+					}
+					// k ¹üÀ§¸¦ ¹ş¾î³ª¼­ º¸·ùÇÑ´Ù.
+					else
+					{
+						ghs wth_GHS{ finding_g, searching_h, curGHS.s };
+						curWthVec.push_back(wth_GHS);
+						wthStk.push(curWthVec);
+					}
+				}
+				else
+					wthStk.push(curWthVec);
+			}
+			// str1(X)¿¡¼­ ´õÀÌ»ó Å½»öÇÒ °ÍÀÌ ¾ø°í ÇöÀçÀÇ °øÅë¹®ÀÚ°¡ ½ÃÀÛ¹®ÀÚ(¼¾Æ¼³Î)ÀÌ ¾Æ´Ñ °æ¿ì
+			else if (curGHS.g >= 0)
+			{
+				mcs = _str1[curGHS.g] + mcs;
+
+				iEnd5 = _str1.find_last_of(_str1[curGHS.g], iEnd5 - 1);
+				jEnd5 = _str2.find_last_of(_str1[curGHS.g], jEnd5 - 1);
+			}
+		}
+	}
+
+	/*cout << "MCS Shin Lenght : " << mcs.length() << '\n';
+	cout << "MCS Shin : ";
+	cout << (mcs + '\0') << '\n';*/
+
+	// ½Ã°£ ÃøÁ¤
+	end_t = clock();
+	result_t = (double)(end_t - start_t);
+
+	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
+	return result;
+}
+
+wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
+{
+	// ½Ã°£ ÃøÁ¤
+	clock_t start_t, end_t;
+	double result_t;
+	start_t = clock();
+
+	int len1 = (int)_str1.length();
+	int len2 = (int)_str2.length();
+
+	wstring mcs = L"";
+
+	stack<krGHS> stk;
+	krGHS init{ 0, -1, -1, 1, 1, false };
+	stk.push(init);
+
+	vector<vector<pair<int, int>>> wthVec(len1 * 2 + 4);
+
+	// ¹üÀ§ÀÇ ¿À¸¥ÂÊ ³¡
+	iEnd6 = len1, jEnd6 = len2;
+
+	int ghsId = 1;
+	while (!stk.empty())
+	{
+		krGHS curGHS = stk.top();
+
+		// X¿Í Y¿¡¼­ Å½»öÇÒ ¹®ÀÚÀÇ À§Ä¡¸¦ ±¸ÇÑ´Ù.
+		int searching_g = curGHS.g + curGHS.gs;
+		int searching_h = curGHS.h + curGHS.hs;
+
+		if (!wthVec[curGHS.id].empty())
+		{
+			pair<int, int> bestWth = wthVec[curGHS.id][0];
+			int bestIdx = 0;
+			for (int i = 1; i < wthVec[curGHS.id].size(); i++)
+			{
+				if (compPOS(wthVec[curGHS.id][i], bestWth))
+				{
+					bestWth = wthVec[curGHS.id][i];
+					bestIdx = i;
+				}
+			}
+
+			wthVec[curGHS.id].erase(wthVec[curGHS.id].begin() + bestIdx);
+
+			if (bestWth.first < iEnd6 && bestWth.second < jEnd6)
+			{
+				krGHS new_ghs{ ghsId++, bestWth.first, bestWth.second, 1, 1, false };
+				stk.push(new_ghs);
+			}
+			continue;
+		}
+
+		stk.pop();
+
+		// µÎ °÷ ¸ğµÎ Å½»ö ¹üÀ§¸¦ ³ÑÁö ¾Ê´Â °æ¿ì
+		if (searching_g < iEnd6 && searching_h < jEnd6)
+		{
+			int finding_h, finding_g;
+
+			if (!curGHS.isKrunned)
+			{
+				for (int i = 0; i < _k; i++)
+				{
+					// Å½»öÇÑ ¹®ÀÚ°¡ ¹Û¿¡ ÀÖÀ¸¸é find_first_of => -1·Î °É·¯Áü
+					// Å½»ö¿¡ ÀÌ¿ëÇÒ ¹®ÀÚ¿¡ ´ëÇÑ ÀÎµ¦½º°¡ ³ÑÀ» ¼öµµ ÀÖÀ½.
+					if (searching_g + i >= iEnd6 || searching_h + i >= jEnd6)
+						break;
+
+					finding_h = _str2.find_first_of(_str1[searching_g + i], curGHS.h + 1);
+					finding_g = _str1.find_first_of(_str2[searching_h + i], curGHS.g + 1);
+
+					if (finding_h != _str2.npos && finding_h != -1 && finding_h < jEnd6)
+						wthVec[curGHS.id].push_back({ searching_g + i, finding_h });
+					if (finding_g != _str1.npos && finding_g != -1 && finding_g < iEnd6)
+						wthVec[curGHS.id].push_back({ finding_g, searching_h + i });
+				}
+				curGHS.isKrunned = true;
+				curGHS.gs = curGHS.hs = _k + 1;
+				stk.push(curGHS);
+				continue;
+			}
+
+			//´õ ÀÌ»ó °¡Á®´Ù ¾µ°Ô ¾øÀ½ÀÌ º¸Àå
+			finding_h = _str2.find_first_of(_str1[searching_g], curGHS.h + 1);
+			finding_g = _str1.find_first_of(_str2[searching_h], curGHS.g + 1);
+
+			// ¾çÂÊ ±âÁØÀÇ ¹®ÀÚ°¡ ´Ù¸¥ ¹®ÀÚ¿­¿¡¼­ ³ªÅ¸³­ °æ¿ì
+			if ((finding_h != _str2.npos && finding_h != -1 && finding_h < jEnd6) &&
+				(finding_g != _str1.npos && finding_g != -1 && finding_g < iEnd6))
+			{
+				int minLen_by_g = min((iEnd6 - searching_g), (jEnd6 - finding_h));
+				int minLen_by_h = min((iEnd6 - finding_g), (jEnd6 - searching_h));
+
+				// X¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
+				if (minLen_by_g >= minLen_by_h)
+				{
+					krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs, curGHS.isKrunned };
+					stk.push(reGHS);
+
+					krGHS next_GHS{ ghsId++, searching_g, finding_h, 1, 1 };
+					stk.push(next_GHS);
+				}
+				// Y¿¡¼­ Ã£Àº ¹®ÀÚ¸¦ ±âÁØÀ¸·Î ÇÒ ¶§ ¹üÀ§°¡ ´õ ³Ğ¾îÁö´Â °æ¿ì
+				else
+				{
+					krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs, curGHS.hs + 1, curGHS.isKrunned };
+					stk.push(reGHS);
+
+					krGHS next_GHS{ ghsId++, finding_g, searching_h, 1, 1 };
+					stk.push(next_GHS);
+				}
+			}
+			// X ±âÁØÀÇ ¹®ÀÚ°¡ str2¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
+			else if (finding_h != _str2.npos && finding_h != -1 && finding_h < jEnd6)
+			{
+				krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1, curGHS.isKrunned };
+				stk.push(reGHS);
+
+				krGHS next_GHS{ ghsId++, searching_g, finding_h, 1, 1 };
+				stk.push(next_GHS);
+			}
+			// Y ±âÁØÀÇ ¹®ÀÚ°¡ str1¿¡¼­ ³ªÅ¸³­ °æ¿ì¸¸
+			else if (finding_g != _str1.npos && finding_g != -1 && finding_g < iEnd6)
+			{
+				krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1, curGHS.isKrunned };
+				stk.push(reGHS);
+
+				krGHS next_GHS{ ghsId++, finding_g, searching_h, 1, 1 };
+				stk.push(next_GHS);
+			}
+			// µÑ´Ù ¾È ³ªÅ¸³­ °æ¿ì
+			else
+			{
+				krGHS reGHS{ curGHS.id, curGHS.g, curGHS.h, curGHS.gs + 1, curGHS.hs + 1, curGHS.isKrunned };
+				stk.push(reGHS);
+			}
+		}
+		else if (curGHS.g >= 0)
+		{
+			mcs = _str1[curGHS.g] + mcs;
+
+			iEnd6 = _str1.find_last_of(_str1[curGHS.g], iEnd6 - 1);
+			jEnd6 = _str2.find_last_of(_str1[curGHS.g], jEnd6 - 1);
+			if (iEnd6 == 0 || jEnd6 == 0 ||
+				iEnd6 == -1 || jEnd6 == -1 ||
+				iEnd6 == _str1.npos || jEnd6 == _str2.npos)
+				break;
+		}
+	}
+
+
+	/*cout << "MCS Shin Lenght : " << mcs.length() << '\n';
+	cout << "MCS Shin : ";
+	cout << (mcs + '\0') << '\n';*/
+
+	// ½Ã°£ ÃøÁ¤
+	end_t = clock();
+	result_t = (double)(end_t - start_t);
+
+	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
+	return result;
+}
+
+
 bool isMCS(wstring _str1, wstring _str2, wstring _mcs)
 {
 	int g = -1; int h = -1;
@@ -2366,6 +2546,7 @@ bool isMCS(wstring _str1, wstring _str2, wstring _mcs)
 	return true;
 }
 
+
 // experiment
 bool ostreamCheck(ofstream& _os, string _name)
 {
@@ -2385,56 +2566,72 @@ bool istreamCheck(ifstream& _is, string _name)
 	}
 	else return true;
 }
-void recordColumn(ofstream& _os)
+void recordColumn(ofstream& _osLen, ofstream& _osT)
 {
-	_os << "testNumber\t|X|\t"
-		<< "LCS_Len\tcorrectness\tperLen\ttime\t"
-		<< "Sakai_Len\tcorrectness\tperLen\ttime\t"
-		<< "Lee_Len\tcorrectness\tperLen\ttime\t";
+	_osLen << "testNumber\t|X|\t"
+		<< "LCS_Len\t" << "Sakai_Len\t"	<< "LeeP_Len\t" << "LeeA_Len\t";
 
-	for (int k = 1; k <= 500; k++)
+	for (int k = 1; k <= 32; k++)
 	{
-		_os << k << "_Len\tcorrectness\tperLen\ttime\t";
+		_osLen << "kc_" << k << "_Len\t";
+	}
+	for (int k = 1; k <= 32; k++)
+	{
+		_osLen << "kr_" << k << "_Len\t";
 	}
 
-	_os << "alphabet_Size\n";
+	_osLen << "alphabet_Size\tVx\tVy\n";
+
+	_osT << "testNumber\t|X|\t"
+		<< "LCS_Len\t" << "Sakai_Len\t" << "LeeP_Len\t" << "LeeA_Len\t";
+
+	for (int k = 1; k <= 32; k++)
+	{
+		_osT << k << "_Len\t";
+	}
+	for (int k = 1; k <= 32; k++)
+	{
+		_osT << "kr_" << k << "_Len\t";
+	}
+
+	_osT << "\n";
 }
-void record(ofstream& _os, returnPacket& _rp)
+// older Recorder: record all data
+//void record(ofstream& _os, returnPacket& _rp)
+//{
+//	if (!_rp.isMaximal)
+//		exit(-1);
+//	_os << _rp.cssLen << '\t' << _rp.isMaximal << '\t' << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t' << _rp.time << '\t';
+//}
+//void record(ofstream& _os, wreturnPacket& _rp)
+//{
+//	if (!_rp.isMaximal)
+//		exit(-1);
+//	_os << _rp.cssLen << '\t' << _rp.isMaximal << '\t' << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t' << _rp.time << '\t';
+//}
+
+void record(ofstream& _osLen, ofstream& _osT, returnPacket& _rp)
 {
 	if (!_rp.isMaximal)
 		exit(-1);
-	_os << _rp.cssLen << '\t' << _rp.isMaximal << '\t' << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t' << _rp.time << '\t';
+	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
+	_osT << _rp.time << '\t';
 }
-void record(ofstream& _os, wreturnPacket& _rp)
+void record(ofstream& _osLen, ofstream& _osT, wreturnPacket& _rp)
 {
 	if (!_rp.isMaximal)
 		exit(-1);
-	_os << _rp.cssLen << '\t' << _rp.isMaximal << '\t' << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t' << _rp.time << '\t';
+	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
+	_osT << _rp.time << '\t';
 }
-returnPacket experiment_function(int _funcNo, int _k, string _str1, string _str2)
+
+void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _osTimeRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum)
 {
-	switch (_funcNo)
-	{
-	case 0:
-		return MCS_T0(_str1, _str2, _k);
-	case 1:
-		return MCS_T1(_str1, _str2, _k);
-	case 2:
-		return MCS_T2(_str1, _str2, _k);
-	case 3:
-		return MCS_T3(_str1, _str2, _k);
-	default:
-		cerr << "WRONG FUNC\n";
-		break;
-	}
-}
-void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum)
-{
-	// ë¬¸ìì—´ì— ëŒ€í•œ ë¬¸ì ì§‘í•© ë¶„ì„
-	// alphabets[char] = {strXì—ì„œì˜ ë°œìƒíšŸìˆ˜, strYì—ì„œì˜ ë°œìƒíšŸìˆ˜}
+	// ¹®ÀÚ¿­¿¡ ´ëÇÑ ¹®ÀÚ ÁıÇÕ ºĞ¼®
+	// alphabets[char] = {strX¿¡¼­ÀÇ ¹ß»ıÈ½¼ö, strY¿¡¼­ÀÇ ¹ß»ıÈ½¼ö}
 	map<char, pair<int, int>> alphabets;
 
-	recordColumn(_osRecorder);
+	recordColumn(_osRecorder, _osTimeRecorder);
 
 	for (int sizeNum = 0; sizeNum < _sizeIterNum; sizeNum++)
 	{
@@ -2453,7 +2650,7 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataN
 			{
 				string tmp;
 				int startPos = (rand() % 10007) * (rand() % 10007) % 20000003;
-				_isData.seekg(startPos, ios::beg);
+				_isData.seekg(startPos, ios::cur);
 
 				char c;
 				while (tmp.length() < size)
@@ -2488,42 +2685,100 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataN
 				continue;
 			}
 
-			// ì‹¤í—˜ ë²ˆí˜¸, ë¬¸ìì—´ ì‚¬ì´ì¦ˆ ê¸°ë¡
+			// ½ÇÇè ¹øÈ£, ¹®ÀÚ¿­ »çÀÌÁî ±â·Ï
 			_osRecorder << sizeNum * _testIterNum + testNum << '\t' << size << '\t';
+			_osTimeRecorder << sizeNum * _testIterNum + testNum << '\t' << size << '\t';
 
 			returnPacket caseResult;
 
 			// LCS
 			caseResult = LCS(strX, strY);
-			record(_osRecorder, caseResult);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LCS" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
 
 			// Y. Sakai
 			caseResult = MCS_0(strX, strY);
-			record(_osRecorder, caseResult);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "Sakai" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
 
-			// Lee
+			// LeeP
 			caseResult = MCS_1(strX, strY);
-			record(_osRecorder, caseResult);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LeeP" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+
+			// LeeA
+			caseResult = MCS_1_A(strX, strY);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LeeA" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
 
 			// k Linear Searching
-			for (int k = 1; k <= 500; k++)
+			for (int k = 1; k <= 32; k++)
 			{
-				caseResult = MCS_T2(strX, strY, k);
-				record(_osRecorder, caseResult);
+				caseResult = MCS_T1(strX, strY, k);
+				if (!caseResult.isMaximal)
+				{
+					cout << "kc" << caseResult.n << "is not maximal\n";
+					exit(1);
+				}
+				record(_osRecorder, _osTimeRecorder, caseResult);
 			}
 
+			// k Range
+			for (int k = 1; k <= 32; k++)
+			{
+				caseResult = MCS_T2(strX, strY, k);
+				if (!caseResult.isMaximal)
+				{
+					cout << "kr" << caseResult.n << "is not maximal\n";
+					exit(1);
+				}
+				record(_osRecorder, _osTimeRecorder, caseResult);
+			}
+			
+
 			// alphabets
-			int keyCnt = 0;
-			for (map<char, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
-				keyCnt++;
-			_osRecorder << keyCnt << '\t';
-			keyCnt = 0;
+			_osRecorder << alphabets.size() << '\t';
+			vector<long double> possibilities[2];
+			long double ePs[2]{ 0 };
 			for (map<char, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
-				_osRecorder << keyCnt << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
-				keyCnt++;
+				long double XP = (long double)(iter->second.first / (long double)size);
+				long double YP = (long double)(iter->second.first / (long double)size);
+				possibilities[0].push_back(XP);
+				possibilities[1].push_back(YP);
+				ePs[0] += XP;
+				ePs[1] += YP;
 			}
+			ePs[0] /= (long double)alphabets.size();
+			ePs[1] /= (long double)alphabets.size();
+
+			long double vPs[2]{ 0 };
+			for (int i = 0; i < possibilities[0].size(); i++)
+			{
+				vPs[0] += pow(ePs[0] - possibilities[0][i], 2);
+				vPs[1] += pow(ePs[1] - possibilities[1][i], 2);
+			}
+			vPs[0] /= (long double)alphabets.size();
+			vPs[1] /= (long double)alphabets.size();
+			_osRecorder << vPs[0] << '\t' << vPs[1];
 			_osRecorder << '\n';
+			_osTimeRecorder << '\n';
 
 			strX.clear();
 			strY.clear();
@@ -2534,13 +2789,13 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, string _dataN
 	}
 }
 
-void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum)
+void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, ofstream& _osTimeRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum)
 {
-	// ë¬¸ìì—´ì— ëŒ€í•œ ë¬¸ì ì§‘í•© ë¶„ì„
-	// alphabets[char] = {strXì—ì„œì˜ ë°œìƒíšŸìˆ˜, strYì—ì„œì˜ ë°œìƒíšŸìˆ˜}
+	// ¹®ÀÚ¿­¿¡ ´ëÇÑ ¹®ÀÚ ÁıÇÕ ºĞ¼®
+	// alphabets[char] = {strX¿¡¼­ÀÇ ¹ß»ıÈ½¼ö, strY¿¡¼­ÀÇ ¹ß»ıÈ½¼ö}
 	map<wchar_t, pair<int, int>> alphabets;
 
-	recordColumn(_osRecorder);
+	recordColumn(_osRecorder, _osTimeRecorder);
 
 	for (int sizeNum = 0; sizeNum < _sizeIterNum; sizeNum++)
 	{
@@ -2575,43 +2830,101 @@ void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, int _sizeIt
 				continue;
 			}
 
-			// ì‹¤í—˜ ë²ˆí˜¸, ë¬¸ìì—´ ì‚¬ì´ì¦ˆ ê¸°ë¡
+			// ½ÇÇè ¹øÈ£, ¹®ÀÚ¿­ »çÀÌÁî ±â·Ï
 			_osRecorder << sizeNum * _testIterNum + testNum << '\t' << size << '\t';
+			_osTimeRecorder << sizeNum * _testIterNum + testNum << '\t' << size << '\t';
 
 			wreturnPacket caseResult;
 
 			// LCS
 			caseResult = LCS(wstrX, wstrY);
-			record(_osRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LCS" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+			record(_osRecorder, _osTimeRecorder, caseResult);
+
 
 			// Y. Sakai
 			caseResult = MCS_0(wstrX, wstrY);
-			record(_osRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "Sakai" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+			record(_osRecorder, _osTimeRecorder, caseResult);
 
-			// Lee
+			// LeeP
 			caseResult = MCS_1(wstrX, wstrY);
-			record(_osRecorder, caseResult);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LeeP" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+
+			// LeeA
+			caseResult = MCS_1_A(wstrX, wstrY);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LeeA" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
 
 			// k Linear Searching
-			for (int k = 1; k <= 500; k++)
+			for (int k = 1; k <= 32; k++)
+			{
+				caseResult = MCS_T1(wstrX, wstrY, k);
+				if (!caseResult.isMaximal)
+				{
+					cout << "kc" << caseResult.n << "is not maximal\n";
+					exit(1);
+				}
+				record(_osRecorder, _osTimeRecorder, caseResult);
+			}
+
+			// k Range
+			for (int k = 1; k <= 32; k++)
 			{
 				caseResult = MCS_T2(wstrX, wstrY, k);
-				record(_osRecorder, caseResult);
+				if (!caseResult.isMaximal)
+				{
+					cout << "kr" << caseResult.n << "is not maximal\n";
+					exit(1);
+				}
+				record(_osRecorder, _osTimeRecorder, caseResult);
 			}
 
 			// alphabets
-			int keyCnt = 0;
-			for (map<wchar_t, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
-				keyCnt++;
-			_osRecorder << keyCnt << '\t';
-			keyCnt = 0;
+			_osRecorder << alphabets.size() << '\t';
+			vector<long double> possibilities[2];
+			long double ePs[2]{ 0 };
 			for (map<wchar_t, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
-				_osRecorder << keyCnt << '\t' << iter->second.first << '\t' << iter->second.second << '\t';
-				keyCnt++;
+				long double XP = (long double)(iter->second.first / (long double)size);
+				long double YP = (long double)(iter->second.first / (long double)size);
+				possibilities[0].push_back(XP);
+				possibilities[1].push_back(YP);
+				ePs[0] += XP;
+				ePs[1] += YP;
 			}
+			ePs[0] /= (long double)alphabets.size();
+			ePs[1] /= (long double)alphabets.size();
+
+			long double vPs[2]{ 0 };
+			for (int i = 0; i < possibilities[0].size(); i++)
+			{
+				vPs[0] += pow(ePs[0] - possibilities[0][i], 2);
+				vPs[1] += pow(ePs[1] - possibilities[1][i], 2);
+			}
+			vPs[0] /= (long double)alphabets.size();
+			vPs[1] /= (long double)alphabets.size();
+			_osRecorder << vPs[0] << '\t' << vPs[1];
 
 			_osRecorder << '\n';
+			_osTimeRecorder << '\n';
 
 			wstrX.clear();
 			wstrY.clear();

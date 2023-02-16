@@ -1813,7 +1813,7 @@ wreturnPacket MCS_1_A(wstring _str1, wstring _str2)
 			// s가 짝수이면 str1(Y)에서 찾는 중이다.
 			if (curGHS.s % 2 == 0)
 			{
-				int searching_h = curGHS.h + (curGHS.s + 1) / 2;
+				int searching_h = curGHS.h + curGHS.s / 2 + 1;
 
 				// 아직 str2(Y)에서의 탐색 범위가 지정된 범위 내에 존재한다.
 				if (searching_h < jEnd)
@@ -1847,7 +1847,7 @@ wreturnPacket MCS_1_A(wstring _str1, wstring _str2)
 			// s가 홀수이면 str2(X)에서 찾는 중이다.
 			else
 			{
-				int searching_g = curGHS.g + curGHS.s / 2 + 1;
+				int searching_g = curGHS.g + (curGHS.s + 1) / 2;
 
 				// 아직 str1(X)에서의 탐색 범위가 지정된 범위 내에 존재한다.
 				if (searching_g < iEnd)
@@ -2502,7 +2502,7 @@ bool isMCS(wstring _str1, wstring _str2, wstring _mcs)
 		h = _str2.find_first_of(_mcs[k], h + 1);
 		if (g == -1 || g == _str1.npos || h == -1 || h == _str2.npos)
 		{
-			cout << "isMCS ERROR: There is no character";
+			//cout << "isMCS ERROR: There is no character";
 			return false;
 		}
 
@@ -2523,7 +2523,7 @@ bool isMCS(wstring _str1, wstring _str2, wstring _mcs)
 			{
 				if (finding_last_in_Y > curGH.h)
 				{
-					cout << "ERROR 3" << endl;
+				//	cout << "ERROR 3" << endl;
 					return false;
 				}
 			}
@@ -2535,7 +2535,7 @@ bool isMCS(wstring _str1, wstring _str2, wstring _mcs)
 			{
 				if (finding_last_in_X > curGH.g)
 				{
-					cout << "ERROR 3" << endl;
+					//cout << "ERROR 3" << endl;
 					return false;
 				}
 			}
@@ -2612,15 +2612,11 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 
 void record(ofstream& _osLen, ofstream& _osT, returnPacket& _rp)
 {
-	if (!_rp.isMaximal)
-		exit(-1);
 	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
 	_osT << _rp.time << '\t';
 }
 void record(ofstream& _osLen, ofstream& _osT, wreturnPacket& _rp)
 {
-	if (!_rp.isMaximal)
-		exit(-1);
 	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
 	_osT << _rp.time << '\t';
 }

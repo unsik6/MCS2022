@@ -11,6 +11,7 @@
 
 #include <boost/random.hpp>
 #include <time.h>
+#include <chrono>
 #include <math.h>
 
 using namespace std;
@@ -223,9 +224,8 @@ int main()
 returnPacket LCS(string _str1, string _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
+
 
 	int LCSlength = 0, max;
 
@@ -295,9 +295,9 @@ returnPacket LCS(string _str1, string _str2)
 	}
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
-
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 	// 소멸
 	for (int i = 0; i < len1 + 1; i++)
 	{
@@ -420,9 +420,7 @@ returnPacket MCS_0(string _str1, string _str2)
 returnPacket MCS_1(string _str1, string _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -522,8 +520,9 @@ returnPacket MCS_1(string _str1, string _str2)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -533,9 +532,7 @@ returnPacket MCS_1(string _str1, string _str2)
 returnPacket MCS_1_A(string _str1, string _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -706,8 +703,9 @@ returnPacket MCS_1_A(string _str1, string _str2)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -739,9 +737,7 @@ bool compGHS(const kcGHS _a, const kcGHS _b)
 returnPacket MCS_T1(string _str1, string _str2, int _k)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -971,8 +967,9 @@ returnPacket MCS_T1(string _str1, string _str2, int _k)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -995,9 +992,7 @@ bool compGHS_1(const ghs _a, const ghs _b)
 returnPacket MCS_T1_1(string _str1, string _str2, int _k)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -1176,8 +1171,9 @@ returnPacket MCS_T1_1(string _str1, string _str2, int _k)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -1202,9 +1198,7 @@ bool compPOS(const pair<int,int> _a, const pair<int,int> _b)
 returnPacket MCS_T2(string _str1, string _str2, int _k)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -1356,8 +1350,9 @@ returnPacket MCS_T2(string _str1, string _str2, int _k)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	returnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -1426,9 +1421,7 @@ bool isMCS(string _str1, string _str2, string _mcs)
 wreturnPacket LCS(wstring _str1, wstring _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int LCSlength = 0, max;
 
@@ -1498,8 +1491,9 @@ wreturnPacket LCS(wstring _str1, wstring _str2)
 	}
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	// 소멸
 	for (int i = 0; i < len1 + 1; i++)
@@ -1514,9 +1508,7 @@ wreturnPacket LCS(wstring _str1, wstring _str2)
 wreturnPacket MCS_0(wstring _str1, wstring _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -1610,8 +1602,9 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -1619,9 +1612,7 @@ wreturnPacket MCS_0(wstring _str1, wstring _str2)
 wreturnPacket MCS_1(wstring _str1, wstring _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -1721,8 +1712,9 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -1731,9 +1723,8 @@ wreturnPacket MCS_1(wstring _str1, wstring _str2)
 wreturnPacket MCS_1_A(wstring _str1, wstring _str2)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
+
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -1904,8 +1895,9 @@ wreturnPacket MCS_1_A(wstring _str1, wstring _str2)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -1914,9 +1906,7 @@ wreturnPacket MCS_1_A(wstring _str1, wstring _str2)
 wreturnPacket MCS_T1(wstring _str1, wstring _str2, int _k)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -2138,8 +2128,9 @@ wreturnPacket MCS_T1(wstring _str1, wstring _str2, int _k)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -2148,9 +2139,7 @@ wreturnPacket MCS_T1(wstring _str1, wstring _str2, int _k)
 wreturnPacket MCS_T1_1(wstring _str1, wstring _str2, int _k)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -2333,8 +2322,9 @@ wreturnPacket MCS_T1_1(wstring _str1, wstring _str2, int _k)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -2343,9 +2333,7 @@ wreturnPacket MCS_T1_1(wstring _str1, wstring _str2, int _k)
 wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 {
 	// 시간 측정
-	clock_t start_t, end_t;
-	double result_t;
-	start_t = clock();
+	chrono::system_clock::time_point StartTime = chrono::system_clock::now();
 
 	int len1 = (int)_str1.length();
 	int len2 = (int)_str2.length();
@@ -2497,8 +2485,9 @@ wreturnPacket MCS_T2(wstring _str1, wstring _str2, int _k)
 	cout << (mcs + '\0') << '\n';*/
 
 	// 시간 측정
-	end_t = clock();
-	result_t = (double)(end_t - start_t);
+	chrono::system_clock::time_point EndTime = chrono::system_clock::now();
+	chrono::microseconds micro = chrono::duration_cast<chrono::microseconds>(EndTime - StartTime);
+	double result_t = static_cast<double>(micro.count());
 
 	wreturnPacket result = { _str1, _str2, mcs, _str1.length() + _str2.length(), mcs.length(), isMCS(_str1, _str2, mcs), result_t };
 	return result;
@@ -2591,10 +2580,10 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 	{
 		_osLen << "kc_" << k << "_Len\t";
 	}
-	for (int k = 1; k <= 128; k++)
+	/*for (int k = 1; k <= 128; k++)
 	{
 		_osLen << "kr_" << k << "_Len\t";
-	}
+	}*/
 
 	_osLen << "alphabet_Size\tVx\tVy\n";
 
@@ -2605,10 +2594,10 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 	{
 		_osT << k << "_Len\t";
 	}
-	for (int k = 1; k <= 128; k++)
+	/*for (int k = 1; k <= 128; k++)
 	{
 		_osT << "kr_" << k << "_Len\t";
-	}
+	}*/
 
 	_osT << "\n";
 }
@@ -2629,12 +2618,12 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 void record(ofstream& _osLen, ofstream& _osT, returnPacket& _rp)
 {
 	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
-	_osT << _rp.time << '\t';
+	_osT << _rp.time/1000 << '\t';
 }
 void record(ofstream& _osLen, ofstream& _osT, wreturnPacket& _rp)
 {
 	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
-	_osT << _rp.time << '\t';
+	_osT << _rp.time/1000 << '\t';
 }
 
 void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _osTimeRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum)
@@ -2962,6 +2951,9 @@ void experiment_RandomData_Norm(int _alphabetSize, ofstream& _osRecorder, ofstre
 		{
 			// string size
 			int size = (sizeNum + 1) * _sizeOffset;
+
+			// 이진 문자열의 경우에는 정규분포와 균등분포가 같다.
+			// 정규분포 최적화로 진행할 경우 문제 발생
 
 			// random - Norm(0.0, 1,0)
 			boost::uint32_t seed;

@@ -139,10 +139,10 @@ int main()
 	string filename = "dna.txt";
 	ifstream isDNA(filename, ios::in);
 	if (!istreamCheck(isDNA, filename)) return -1;
-	filename = "dnaResult.txt";
+	filename = "00_dnaResult.txt";
 	ofstream osDNA(filename, ios::out);
 	if (!ostreamCheck(osDNA, filename)) return -1;
-	filename = "time" + filename;
+	filename = "00_time" + filename;
 	ofstream ostDNA(filename, ios::out);
 	if (!ostreamCheck(ostDNA, filename)) return -1;
 
@@ -156,10 +156,10 @@ int main()
 	filename = "proteins.txt";
 	ifstream isProtein(filename, ios::in);
 	if(!istreamCheck(isProtein, filename)) return -1;
-	filename = "proteinResult.txt";
+	filename = "01_proteinResult.txt";
 	ofstream osProtein(filename, ios::out);
 	if (!ostreamCheck(osProtein, filename)) return -1;
-	filename = "time" + filename;
+	filename = "01_time" + filename;
 	ofstream ostProtein(filename, ios::out);
 	if (!ostreamCheck(ostProtein, filename)) return -1;
 
@@ -173,10 +173,10 @@ int main()
 	filename = "english.txt";
 	ifstream isEng(filename, ios::in);
 	if(!istreamCheck(isEng, filename)) return -1;
-	filename = "englishResult.txt";
+	filename = "02_englishResult.txt";
 	ofstream osEng(filename, ios::out);
 	if(!ostreamCheck(osEng, filename)) return -1;
-	filename = "time" + filename;
+	filename = "02_time" + filename;
 	ofstream ostEng(filename, ios::out);
 	if (!ostreamCheck(ostEng, filename)) return -1;
 
@@ -186,14 +186,28 @@ int main()
 	osEng.clear(); osEng.close();
 	ostEng.clear(); ostEng.close();
 
+	int fileCnt = 3;
+
 	// random
 	string prefix = "_alphabetResult.txt";
 	for (int alphaIdx = 0; alphaIdx < 11; alphaIdx++)
 	{
-		filename = to_string(randomAlphabetSizes[alphaIdx]) + prefix;
+		string file_prefix = "";
+		if (fileCnt < 10)
+			file_prefix = "0";
+		int tmpCnt = fileCnt;
+		while (tmpCnt > 0)
+		{
+			tmpCnt %= 10;
+
+			file_prefix.push_back((char)(tmpCnt + '0'));
+
+			tmpCnt /= 10;
+		}
+		filename = file_prefix + to_string(randomAlphabetSizes[alphaIdx]) + prefix;
 		ofstream osRandom(filename, ios::out);
 		if(!ostreamCheck(osRandom, filename)) return -1;
-		filename = "time" + filename;
+		filename = file_prefix + "time" + filename;
 		ofstream ostRan(filename, ios::out);
 		if (!ostreamCheck(ostRan, filename)) return -1;
 
@@ -201,14 +215,27 @@ int main()
 
 		osRandom.clear(); osRandom.close();
 		ostRan.clear(); ostRan.close();
+		fileCnt++;
 	}
 	prefix = "_NormAlphabetResult.txt";
 	for (int alphaIdx = 0; alphaIdx < 11; alphaIdx++)
 	{
-		filename = to_string(randomAlphabetSizes[alphaIdx]) + prefix;
+		string file_prefix = "";
+		if (fileCnt < 10)
+			file_prefix = "0";
+		int tmpCnt = fileCnt;
+		while (tmpCnt > 0)
+		{
+			tmpCnt %= 10;
+
+			file_prefix.push_back((char)(tmpCnt + '0'));
+
+			tmpCnt /= 10;
+		}
+		filename = file_prefix + to_string(randomAlphabetSizes[alphaIdx]) + prefix;
 		ofstream osRandom(filename, ios::out);
 		if (!ostreamCheck(osRandom, filename)) return -1;
-		filename = "time" + filename;
+		filename = file_prefix + "time" + filename;
 		ofstream ostRan(filename, ios::out);
 		if (!ostreamCheck(ostRan, filename)) return -1;
 
@@ -216,6 +243,7 @@ int main()
 
 		osRandom.clear(); osRandom.close();
 		ostRan.clear(); ostRan.close();
+		fileCnt++;
 	}
 	
 	return 0;
@@ -2618,12 +2646,12 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 void record(ofstream& _osLen, ofstream& _osT, returnPacket& _rp)
 {
 	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
-	_osT << _rp.time/1000 << '\t';
+	_osT << _rp.time * 1000 << '\t';
 }
 void record(ofstream& _osLen, ofstream& _osT, wreturnPacket& _rp)
 {
 	_osLen << (double)((double)_rp.cssLen / (double)_rp.n * 100 * 2) << '\t';
-	_osT << _rp.time/1000 << '\t';
+	_osT << _rp.time * 1000 << '\t';
 }
 
 void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _osTimeRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum)

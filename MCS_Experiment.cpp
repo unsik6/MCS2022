@@ -130,6 +130,7 @@ void record(ofstream& _osLen, ofstream& _osT, wreturnPacket& _rp);
 returnPacket experiment_function(int _funcNo, int _k, string _str1, string _str2);
 void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _osTimeRecorder, string _dataName, int _sizeIterNum, int _sizeOffset, int _testIterNum);
 void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, ofstream& _osTimeRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum);
+void experiment_RandomData_Norm(int _alphabetSize, ofstream& _osRecorder, ofstream& _osTimeRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum);
 
 int main()
 {
@@ -196,6 +197,21 @@ int main()
 		if (!ostreamCheck(ostRan, filename)) return -1;
 
 		experiment_RandomData(randomAlphabetSizes[alphaIdx], osRandom, ostRan, 10, 1000, 100);
+
+		osRandom.clear(); osRandom.close();
+		ostRan.clear(); ostRan.close();
+	}
+	prefix = "_NormAlphabetResult.txt";
+	for (int alphaIdx = 0; alphaIdx < 11; alphaIdx++)
+	{
+		filename = to_string(randomAlphabetSizes[alphaIdx]) + prefix;
+		ofstream osRandom(filename, ios::out);
+		if (!ostreamCheck(osRandom, filename)) return -1;
+		filename = "time" + filename;
+		ofstream ostRan(filename, ios::out);
+		if (!ostreamCheck(ostRan, filename)) return -1;
+
+		experiment_RandomData_Norm(randomAlphabetSizes[alphaIdx], osRandom, ostRan, 10, 1000, 100);
 
 		osRandom.clear(); osRandom.close();
 		ostRan.clear(); ostRan.close();
@@ -2571,11 +2587,11 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 	_osLen << "testNumber\t|X|\t"
 		<< "LCS_Len\t" << "Sakai_Len\t"	<< "LeeP_Len\t" << "LeeA_Len\t";
 
-	for (int k = 1; k <= 32; k++)
+	for (int k = 1; k <= 128; k++)
 	{
 		_osLen << "kc_" << k << "_Len\t";
 	}
-	for (int k = 1; k <= 32; k++)
+	for (int k = 1; k <= 128; k++)
 	{
 		_osLen << "kr_" << k << "_Len\t";
 	}
@@ -2585,11 +2601,11 @@ void recordColumn(ofstream& _osLen, ofstream& _osT)
 	_osT << "testNumber\t|X|\t"
 		<< "LCS_Len\t" << "Sakai_Len\t" << "LeeP_Len\t" << "LeeA_Len\t";
 
-	for (int k = 1; k <= 32; k++)
+	for (int k = 1; k <= 128; k++)
 	{
 		_osT << k << "_Len\t";
 	}
-	for (int k = 1; k <= 32; k++)
+	for (int k = 1; k <= 128; k++)
 	{
 		_osT << "kr_" << k << "_Len\t";
 	}
@@ -2724,7 +2740,7 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _os
 			}
 
 			// k Linear Searching
-			for (int k = 1; k <= 32; k++)
+			for (int k = 1; k <= 128; k++)
 			{
 				caseResult = MCS_T1(strX, strY, k);
 				if (!caseResult.isMaximal)
@@ -2735,17 +2751,18 @@ void experiment_RealData(ifstream& _isData, ofstream& _osRecorder, ofstream& _os
 				record(_osRecorder, _osTimeRecorder, caseResult);
 			}
 
-			// k Range
-			for (int k = 1; k <= 32; k++)
-			{
-				caseResult = MCS_T2(strX, strY, k);
-				if (!caseResult.isMaximal)
-				{
-					cout << "kr" << caseResult.n << "is not maximal\n";
-					exit(1);
-				}
-				record(_osRecorder, _osTimeRecorder, caseResult);
-			}
+			// Except kr because it is not good algorithm
+			//// k Range
+			//for (int k = 1; k <= 128; k++)
+			//{
+			//	caseResult = MCS_T2(strX, strY, k);
+			//	if (!caseResult.isMaximal)
+			//	{
+			//		cout << "kr" << caseResult.n << "is not maximal\n";
+			//		exit(1);
+			//	}
+			//	record(_osRecorder, _osTimeRecorder, caseResult);
+			//}
 			
 
 			// alphabets
@@ -2804,7 +2821,7 @@ void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, ofstream& _
 			boost::uint32_t seed;
 			seed = static_cast<boost::uint32_t>(time(0));
 			seed = seed + (testNum * sizeNum) % 1049861;
-			boost::variate_generator<boost::lagged_fibonacci607, boost::uniform_int<>> rand(boost::lagged_fibonacci607(seed), boost::uniform_int<>(1, _alphabetSize));
+			boost::variate_generator<boost::mt19937, boost::uniform_int<>> rand(boost::mt19937(seed), boost::uniform_int<>(1, _alphabetSize));
 
 			for (int i = 0; i < size; i++)
 			{
@@ -2870,7 +2887,7 @@ void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, ofstream& _
 			}
 
 			// k Linear Searching
-			for (int k = 1; k <= 32; k++)
+			for (int k = 1; k <= 128; k++)
 			{
 				caseResult = MCS_T1(wstrX, wstrY, k);
 				if (!caseResult.isMaximal)
@@ -2881,17 +2898,234 @@ void experiment_RandomData(int _alphabetSize, ofstream& _osRecorder, ofstream& _
 				record(_osRecorder, _osTimeRecorder, caseResult);
 			}
 
-			// k Range
-			for (int k = 1; k <= 32; k++)
+			// Except kr because it is not good algorithm
+			//// k Range
+			//for (int k = 1; k <= 128; k++)
+			//{
+			//	caseResult = MCS_T2(wstrX, wstrY, k);
+			//	if (!caseResult.isMaximal)
+			//	{
+			//		cout << "kr" << caseResult.n << "is not maximal\n";
+			//		exit(1);
+			//	}
+			//	record(_osRecorder, _osTimeRecorder, caseResult);
+			//}
+
+			// alphabets
+			_osRecorder << alphabets.size() << '\t';
+			vector<long double> possibilities[2];
+			long double ePs[2]{ 0 };
+			for (map<wchar_t, pair<int, int>>::iterator iter = alphabets.begin(); iter != alphabets.end(); iter++)
 			{
-				caseResult = MCS_T2(wstrX, wstrY, k);
+				long double XP = (long double)(iter->second.first / (long double)size);
+				long double YP = (long double)(iter->second.first / (long double)size);
+				possibilities[0].push_back(XP);
+				possibilities[1].push_back(YP);
+				ePs[0] += XP;
+				ePs[1] += YP;
+			}
+			ePs[0] /= (long double)alphabets.size();
+			ePs[1] /= (long double)alphabets.size();
+
+			long double vPs[2]{ 0 };
+			for (int i = 0; i < possibilities[0].size(); i++)
+			{
+				vPs[0] += pow(ePs[0] - possibilities[0][i], 2);
+				vPs[1] += pow(ePs[1] - possibilities[1][i], 2);
+			}
+			vPs[0] /= (long double)alphabets.size();
+			vPs[1] /= (long double)alphabets.size();
+			_osRecorder << vPs[0] << '\t' << vPs[1];
+
+			_osRecorder << '\n';
+			_osTimeRecorder << '\n';
+
+			wstrX.clear();
+			wstrY.clear();
+
+			cout << _alphabetSize << ' ' << sizeNum * _testIterNum + testNum << '\n';
+		}
+	}
+}
+
+void experiment_RandomData_Norm(int _alphabetSize, ofstream& _osRecorder, ofstream& _osTimeRecorder, int _sizeIterNum, int _sizeOffset, int _testIterNum)
+{
+	// 문자열에 대한 문자 집합 분석
+	// alphabets[char] = {strX에서의 발생횟수, strY에서의 발생횟수}
+	map<wchar_t, pair<int, int>> alphabets;
+
+	recordColumn(_osRecorder, _osTimeRecorder);
+
+	for (int sizeNum = 0; sizeNum < _sizeIterNum; sizeNum++)
+	{
+		for (int testNum = 0; testNum < _testIterNum; testNum++)
+		{
+			// string size
+			int size = (sizeNum + 1) * _sizeOffset;
+
+			// random - Norm(0.0, 1,0)
+			boost::uint32_t seed;
+			seed = static_cast<boost::uint32_t>(time(0));
+			seed = seed + (testNum * sizeNum) % 1049861;
+			boost::variate_generator<boost::mt19937, boost::normal_distribution<>> rand(boost::mt19937(seed), boost::normal_distribution<>(0.0, 1.0));
+
+			double* keys = new double[size];
+			int* iKeys = new int[size];
+			double rmin = 0, rmax = 0;
+
+			for (int i = 0; i < size; i++)
+			{
+				keys[i] = rand();
+				if (keys[i] < rmin) rmin = keys[i];
+				if (keys[i] > rmax) rmax = keys[i];
+			}
+
+			// convert Norm(0.0, 1.0) to [1:_alphabetSize] integers
+			double off = (abs(rmin) > abs(rmax) ? abs(rmin) : abs(rmax));
+			double rOff = _alphabetSize / 2;
+			off = rOff / off;
+
+			for (int i = 0; i < size; i++)
+			{
+				keys[i] *= off;
+				keys[i] += _alphabetSize / 2 + 1;
+
+				// boundary out => make new char
+				while (keys[i] < 1 || keys[i] > _alphabetSize)
+				{
+					double key = rand();
+					keys[i] = key;
+					keys[i] *= off;
+					keys[i] += _alphabetSize / 2 + 1;
+				}
+
+				iKeys[i] = keys[i];
+			}
+
+			for (int i = 0; i < size; i++)
+			{
+				wchar_t wc = (wchar_t)iKeys[i];
+				wstrX.push_back(wc);
+				alphabets[wc].first++;
+			}
+
+
+			// string Y
+			rmin = 0, rmax = 0;
+
+			for (int i = 0; i < size; i++)
+			{
+				keys[i] = rand();
+				if (keys[i] < rmin) rmin = keys[i];
+				if (keys[i] > rmax) rmax = keys[i];
+			}
+
+			// convert Norm(0.0, 1.0) to [1:_alphabetSize] integers
+			off = (abs(rmin) > abs(rmax) ? abs(rmin) : abs(rmax));
+			rOff = _alphabetSize / 2;
+			off = rOff / off;
+
+			for (int i = 0; i < size; i++)
+			{
+				keys[i] *= off;
+				keys[i] += _alphabetSize / 2 + 1;
+
+
+				// boundary out => make new char
+				while (keys[i] < 1 || keys[i] > _alphabetSize)
+				{
+					double key = rand();
+					keys[i] = key;
+					keys[i] *= off;
+					keys[i] += _alphabetSize / 2 + 1;
+				}
+
+				iKeys[i] = keys[i];
+			}
+
+			for (int i = 0; i < size; i++)
+			{
+				wchar_t wc = (wchar_t)iKeys[i];
+				wstrY.push_back(wc);
+				alphabets[wc].second++;
+			}
+			delete[] keys;
+			delete[] iKeys;
+
+			if (wstrX.length() != size || wstrY.length() != size)
+			{
+				testNum--;
+				alphabets.clear();
+				continue;
+			}
+
+			// 실험 번호, 문자열 사이즈 기록
+			_osRecorder << sizeNum * _testIterNum + testNum << '\t' << size << '\t';
+			_osTimeRecorder << sizeNum * _testIterNum + testNum << '\t' << size << '\t';
+
+			wreturnPacket caseResult;
+
+			// LCS
+			caseResult = LCS(wstrX, wstrY);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LCS" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+			record(_osRecorder, _osTimeRecorder, caseResult);
+
+
+			// Y. Sakai
+			caseResult = MCS_0(wstrX, wstrY);
+			if (!caseResult.isMaximal)
+			{
+				cout << "Sakai" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+			record(_osRecorder, _osTimeRecorder, caseResult);
+
+			// LeeP
+			caseResult = MCS_1(wstrX, wstrY);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LeeP" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+
+			// LeeA
+			caseResult = MCS_1_A(wstrX, wstrY);
+			record(_osRecorder, _osTimeRecorder, caseResult);
+			if (!caseResult.isMaximal)
+			{
+				cout << "LeeA" << caseResult.n << "is not maximal\n";
+				exit(1);
+			}
+
+			// k Linear Searching
+			for (int k = 1; k <= 128; k++)
+			{
+				caseResult = MCS_T1(wstrX, wstrY, k);
 				if (!caseResult.isMaximal)
 				{
-					cout << "kr" << caseResult.n << "is not maximal\n";
+					cout << "kc" << caseResult.n << "is not maximal\n";
 					exit(1);
 				}
 				record(_osRecorder, _osTimeRecorder, caseResult);
 			}
+
+			// Except kr because it is not good algorithm
+			//// k Range
+			//for (int k = 1; k <= 128; k++)
+			//{
+			//	caseResult = MCS_T2(wstrX, wstrY, k);
+			//	if (!caseResult.isMaximal)
+			//	{
+			//		cout << "kr" << caseResult.n << "is not maximal\n";
+			//		exit(1);
+			//	}
+			//	record(_osRecorder, _osTimeRecorder, caseResult);
+			//}
 
 			// alphabets
 			_osRecorder << alphabets.size() << '\t';

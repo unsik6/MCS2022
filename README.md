@@ -1,8 +1,8 @@
 # A New Algorithm of Finding a Maximal Common Subsequence of Two Strings
 
--   Hyeonjun Shin, & Jeon Seop Sim. A New Algorithm of Finding a Maximal Common Subsequence of Two Strings. Korea Software Congress 2022, 1212-1214.
+- Hyeonjun Shin, & Jeon Seop Sim. A New Algorithm of Finding a Maximal Common Subsequence of Two Strings. Korea Software Congress 2022, 1212-1214.
 - This paper is submitted at Korea Software Congress 2022 of Korean Institute of Information Scientists and Engineers. And, this paper won the Top Theorical Computer Science Paper Award.
-
+- This repository contains the source codes of the experiment to compare the performance of algorithms of previous works and Shin's algorithm to solve MCS problem.
 
 ## Maximal Common Subsequences
 - MCS(Maximal Common Subsequences) is common subsequences that is no longer a common subsequence when any character is inserted.
